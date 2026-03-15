@@ -27,6 +27,16 @@ flutter pub get
 
 ### 运行应用
 
+#### 方式一：Web 浏览器（推荐，最简单）
+
+双击运行 `run_web.bat`，或在命令行中：
+
+```bash
+flutter run -d chrome
+```
+
+#### 方式二：Android/iOS 模拟器
+
 ```bash
 flutter run
 ```

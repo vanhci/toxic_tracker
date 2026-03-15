@@ -3,7 +3,7 @@
 ## 项目状态
 
 ✅ Flutter 项目已创建完成
-⏳ Flutter SDK 正在安装中（Git 克隆）
+✅ Flutter SDK 安装完成
 
 ## 项目位置
 
@@ -20,18 +20,27 @@
    - 惩罚页面（连续鸽3次触发）
 3. ✅ 配置 Android 和 iOS 构建文件
 4. ✅ 创建安装脚本和开发环境脚本
-5. ⏳ Flutter SDK 正在通过 Git 克隆（进行中）
+5. ✅ Flutter SDK 已通过 Git 克隆完成
+6. ✅ 创建 Web 浏览器测试脚本（run_web.bat）
 
 ### 待完成
-1. ⏳ 等待 Flutter SDK 克隆完成（约 5-10 分钟）
-2. ⏳ 运行 `flutter doctor` 检查环境
-3. ⏳ 安装 Android Studio（用于 Android 开发）
-4. ⏳ 安装项目依赖 `flutter pub get`
-5. ⏳ 运行应用 `flutter run`
+1. ⏳ 运行 `flutter doctor` 检查环境
+2. ⏳ 安装 Android Studio（用于 Android 开发）或使用 Chrome 进行 Web 测试
+3. ⏳ 安装项目依赖 `flutter pub get`
+4. ⏳ 运行应用 `flutter run` 或 `flutter run -d chrome`（Web 版本）
 
-## 快速开始（Flutter SDK 安装完成后）
+## 快速开始
 
-### 方法一：使用快速启动脚本
+### 最快方式：使用 Web 浏览器测试（推荐）
+
+双击运行：
+```
+E:\works\toxic_tracker\run_web.bat
+```
+
+这会自动在 Chrome 浏览器中打开应用，无需安装 Android Studio。
+
+### 方法一：使用快速启动脚本（Android/iOS）
 
 双击运行：
 ```
@@ -68,15 +77,17 @@ E:\works\toxic_tracker\flutter_dev.bat
    flutter run
    ```
 
-## 检查 Flutter SDK 安装进度
+## 检查 Flutter SDK 安装状态
 
-在命令行中运行：
+Flutter SDK 已安装完成！位置：`E:\works\flutter_sdk\flutter`
+
+运行以下命令验证：
 ```bash
 cd E:\works\flutter_sdk\flutter
 git status
 ```
 
-如果显示 "On branch stable"，说明克隆完成。
+应该显示 "On branch stable"。
 
 ## 安装 Android Studio（必需）
 
@@ -118,6 +129,14 @@ flutter doctor -v
 ```
 
 ## 运行项目
+
+### 使用 Web 浏览器（最简单）
+```bash
+cd E:\works\toxic_tracker
+e:\works\flutter_sdk\flutter\bin\flutter run -d chrome
+```
+
+或直接双击 `run_web.bat`
 
 ### 使用 Android 模拟器
 ```bash
@@ -232,11 +251,11 @@ toxic_tracker/
 
 ## 下一步
 
-1. 等待 Flutter SDK 克隆完成
-2. 运行 `flutter doctor` 检查环境
-3. 安装 Android Studio
-4. 运行 `flutter pub get` 安装依赖
-5. 运行 `flutter run` 启动应用
+1. ✅ Flutter SDK 克隆完成
+2. ⏳ 运行 `flutter doctor` 检查环境（可选）
+3. ⏳ 运行 `flutter pub get` 安装依赖
+4. ⏳ 运行 `run_web.bat` 或 `flutter run -d chrome` 在浏览器中测试
+5. ⏳ （可选）安装 Android Studio 用于移动端开发
 
 ## 联系与支持
 
