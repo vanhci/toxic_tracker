@@ -1,0 +1,9 @@
+.metadata
+.flutter-plugins
+.flutter-plugins-dependencies
+.dart_tool/
+.packages
+build/
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+android/local.properties
