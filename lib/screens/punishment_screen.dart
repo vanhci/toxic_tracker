@@ -16,7 +16,7 @@ class PunishmentScreen extends StatefulWidget {
 }
 
 class _PunishmentScreenState extends State<PunishmentScreen> {
-  int _countdown = 30;
+  int _countdown = 30; // 30秒的耻辱时刻
   Timer? _timer;
   bool _canExit = false;
 
@@ -47,139 +47,118 @@ class _PunishmentScreenState extends State<PunishmentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => _canExit,
+    // 升级为最新的 PopScope API，彻底锁死返回键
+    return PopScope(
+      canPop: _canExit,
+      onPopInvoked: (didPop) {
+        if (!didPop) {
+          // 这里其实可以加个弹窗骂他：“倒计时没完你点什么返回？”
+          // 但为了极简，我们直接无视他的挣扎
+        }
+      },
       child: Scaffold(
-        backgroundColor: Colors.black,
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.red[900]!,
-                Colors.black,
-                Colors.black,
-              ],
-            ),
-          ),
-          child: SafeArea(
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+        backgroundColor: const Color(0xFFFF3333), // 让人狂躁的刺眼背景红
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                // 顶部：无情的处刑宣告
+                const Column(
                   children: [
-                    const Icon(
-                      Icons.warning_amber_rounded,
-                      size: 100,
-                      color: Colors.red,
-                    ),
-                    const SizedBox(height: 40),
-                    const Text(
-                      '⚡ 行刑官已降临 ⚡',
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 2,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 20),
-                    const Text(
-                      '准备受罚！',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 40),
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.red, width: 2),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Column(
-                        children: [
-                          Text(
-                            '惩罚类型: ${widget.punishmentType}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            '任务: ${widget.taskTitle}',
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 16,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 60),
-                    Container(
-                      width: 200,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.red, width: 4),
-                        color: Colors.black,
-                      ),
-                      child: Center(
-                        child: Text(
-                          _countdown.toString(),
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontSize: 80,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 40),
+                    Text('💀', style: TextStyle(fontSize: 80)),
+                    SizedBox(height: 10),
                     Text(
-                      _canExit ? '惩罚完成，可以退出' : '惩罚进行中...',
+                      '公开处刑',
                       style: TextStyle(
-                        color: _canExit ? Colors.green : Colors.grey,
-                        fontSize: 18,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: _canExit
-                            ? () => Navigator.pop(context)
-                            : null,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: _canExit ? Colors.green : Colors.grey[800],
-                          foregroundColor: Colors.white,
-                          disabledBackgroundColor: Colors.grey[800],
-                          disabledForegroundColor: Colors.grey[600],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: Text(
-                          _canExit ? '逃离地狱' : '惩罚未完成，无法退出',
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        color: Colors.black,
+                        fontSize: 48,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 4,
                       ),
                     ),
                   ],
                 ),
-              ),
+
+                // 中部：罪名展示 (白底黑框硬阴影)
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.black, width: 4),
+                    boxShadow: const [BoxShadow(color: Colors.black, offset: Offset(8, 8))],
+                  ),
+                  child: Column(
+                    children: [
+                      const Text(
+                        '连下面这点事都做不到\n你的人生还有什么希望？',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        '「${widget.taskTitle}」',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Colors.black),
+                      ),
+                      const SizedBox(height: 16),
+                      Container(color: Colors.black, height: 4, width: 60), // 极简分割线
+                      const SizedBox(height: 16),
+                      Text(
+                        '当前刑罚：${widget.punishmentType}',
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: Color(0xFFFF3333)),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // 下部：绝望的倒计时 (黑底白框反向硬阴影)
+                Container(
+                  width: 150,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    border: Border.all(color: Colors.white, width: 4),
+                    boxShadow: const [BoxShadow(color: Colors.white, offset: Offset(8, 8))],
+                  ),
+                  child: Center(
+                    child: Text(
+                      _countdown.toString(),
+                      style: const TextStyle(
+                        color: Color(0xFFCCFF00), // 荧光黄数字
+                        fontSize: 72,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                ),
+
+                // 底部：极具侮辱性的按钮
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: _canExit ? () => Navigator.pop(context) : null,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _canExit ? const Color(0xFFCCFF00) : Colors.grey[400],
+                      foregroundColor: Colors.black,
+                      disabledBackgroundColor: Colors.grey[400],
+                      disabledForegroundColor: Colors.black54,
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.black, width: 4)),
+                      elevation: 0,
+                    ),
+                    child: Text(
+                      _canExit ? '滚吧，下次别再犯了' : '闭嘴，好好反省 ($_countdown秒)',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
