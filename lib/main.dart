@@ -1,7 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'services/purchase_service.dart';
 import 'screens/home_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 开发模式：使用默认配置，允许应用在未配置时也能运行
+  const supabaseUrl = String.fromEnvironment(
+    'SUPABASE_URL',
+    defaultValue: 'https://placeholder.supabase.co',
+  );
+  const supabaseAnonKey = String.fromEnvironment(
+    'SUPABASE_ANON_KEY',
+    defaultValue: 'placeholder-key',
+  );
+
+  try {
+    await Supabase.initialize(
+      url: supabaseUrl,
+      anonKey: supabaseAnonKey,
+    );
+  } catch (e) {
+    print('Supabase 初始化失败（可能是占位符配置）: $e');
+  }
+
+  try {
+    await PurchaseService.initialize();
+  } catch (e) {
+    print('PurchaseService 初始化失败: $e');
+  }
+
   runApp(const ToxicTrackerApp());
 }
 

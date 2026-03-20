@@ -1,9 +1,17 @@
+import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:share_plus/share_plus.dart';
 import '../models/task.dart';
+import '../models/coach.dart';
 import '../services/task_storage.dart';
+import '../services/upload_service.dart';
+import '../services/verdict_service.dart';
 import 'add_task_screen.dart';
 import 'punishment_screen.dart';
+import 'coach_selection_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,13 +22,25 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TaskStorage _storage = TaskStorage();
+  final ImagePicker _picker = ImagePicker();
   List<Task> _tasks = [];
   bool _isLoading = true;
+  Coach _currentCoach = Coach.defaultCoaches.first;
+  // 存储所有活跃的判决 ID，用于取消监听
+  final Set<String> _activeVerdictIds = {};
 
   @override
   void initState() {
     super.initState();
     _loadTasks();
+  }
+
+  @override
+  void dispose() {
+    for (final verdictId in _activeVerdictIds) {
+      VerdictService.cancelListen(verdictId);
+    }
+    super.dispose();
   }
 
   Future<void> _loadTasks() async {
@@ -33,6 +53,53 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _markAsFailed(Task task) async {
+    // 强制拍照作为"呈堂证供"
+    final XFile? photo = await _picker.pickImage(
+      source: ImageSource.camera,
+      preferredCameraDevice: CameraDevice.front,
+      imageQuality: 80,
+    );
+
+    // 用户拒绝拍照则不记录失败
+    if (photo == null) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('不敢拍？那就别说自己鸽了。', style: TextStyle(fontWeight: FontWeight.w900)),
+            backgroundColor: Colors.black,
+          ),
+        );
+      }
+      return;
+    }
+
+    // 显示上传中提示
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('正在上传你的耻辱照片...', style: TextStyle(fontWeight: FontWeight.w900)),
+          backgroundColor: Colors.black,
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+
+    // 上传照片到 Firebase Storage
+    String? photoUrl;
+    try {
+      photoUrl = await UploadService.uploadProofPhoto(task.id, File(photo.path));
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('上传失败：$e', style: const TextStyle(fontWeight: FontWeight.w900)),
+            backgroundColor: const Color(0xFFFF3333),
+          ),
+        );
+      }
+      return;
+    }
+
     final now = DateTime.now();
     final updatedTask = task.copyWith(
       consecutiveFails: task.consecutiveFails + 1,
@@ -41,6 +108,45 @@ class _HomeScreenState extends State<HomeScreen> {
 
     await _storage.updateTask(updatedTask);
     await _loadTasks();
+
+    // 在 Supabase 创建判决记录，获取 verdictId
+    final verdictId = await VerdictService.createVerdict(
+      taskId: task.id,
+      taskTitle: task.title,
+      photoUrl: photoUrl,
+    );
+
+    // 监听死党的判决结果
+    _activeVerdictIds.add(verdictId);
+    VerdictService.listenVerdict(verdictId, (status) {
+      VerdictService.cancelListen(verdictId);
+      _activeVerdictIds.remove(verdictId);
+      if (!mounted) return;
+      if (status == VerdictStatus.punish) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PunishmentScreen(
+              punishmentType: '死党处刑令',
+              taskTitle: task.title,
+            ),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('😮‍💨 死党放你一马了，下次别再犯。', style: TextStyle(fontWeight: FontWeight.w900)),
+            backgroundColor: Colors.black,
+          ),
+        );
+      }
+    });
+
+    // 生成分享链接（部署后替换域名）
+    final shareUrl = 'https://your-h5-domain.vercel.app/?verdict=$verdictId&photo=${Uri.encodeComponent(photoUrl)}&task=${Uri.encodeComponent(task.title)}';
+    final shareText = '🙄 我又鸽了「${task.title}」\n\n死党们，快来当我的行刑官，帮我做个决定：\n\n$shareUrl\n\n——来自《今天鸽了吗》';
+
+    await Share.share(shareText, subject: '我又鸽了，快来处刑我');
 
     if (updatedTask.consecutiveFails >= 3) {
       _showPunishmentDialog(updatedTask);
@@ -139,25 +245,37 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // 核心视觉1：抛弃标准AppBar，使用带有强烈个人色彩的Header
   Widget _buildToxicHeader() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: Colors.black, width: 3)),
-      ),
-      child: const Row(
-        children: [
-          Text('🙄', style: TextStyle(fontSize: 48)),
-          SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Amanda', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.grey)),
-                Text('哟，今天准备好\n让我失望了吗？', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, height: 1.2)),
-              ],
+    return GestureDetector(
+      onTap: () async {
+        final selected = await Navigator.push<Coach>(
+          context,
+          MaterialPageRoute(builder: (context) => const CoachSelectionScreen()),
+        );
+        if (selected != null) {
+          setState(() => _currentCoach = selected);
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: const BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.black, width: 3)),
+        ),
+        child: Row(
+          children: [
+            Text(_currentCoach.emoji, style: const TextStyle(fontSize: 48)),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(_currentCoach.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.grey)),
+                  Text(_currentCoach.greeting, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900, height: 1.2)),
+                ],
+              ),
             ),
-          ),
-        ],
+            const Icon(Icons.chevron_right, color: Colors.black, size: 32),
+          ],
+        ),
       ),
     );
   }
