@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
@@ -84,10 +83,10 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
-    // 上传照片到 Firebase Storage
+    // 上传照片到 Supabase Storage
     String? photoUrl;
     try {
-      photoUrl = await UploadService.uploadProofPhoto(task.id, File(photo.path));
+      photoUrl = await UploadService.uploadProofPhoto(task.id, photo);
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
