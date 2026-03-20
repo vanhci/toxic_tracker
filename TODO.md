@@ -2,54 +2,30 @@
 
 ## 📋 配置清单（必须完成才能上线）
 
-### 1️⃣ Supabase 配置
+### 1️⃣ Supabase 配置 ✅ 已完成
 
 #### 创建项目
-- [ ] 访问 [supabase.com](https://supabase.com) 创建账号
-- [ ] 创建新项目，选择离用户最近的区域
-- [ ] 在项目设置中获取 **Project URL** 和 **Anon Key**
+- [x] 访问 [supabase.com](https://supabase.com) 创建账号
+- [x] 创建新项目，选择离用户最近的区域
+- [x] 在项目设置中获取 **Project URL** 和 **Anon Key**
 
 #### 配置应用
-- [ ] 替换 `lib/main.dart` 中的占位符：
-  ```dart
-  const supabaseUrl = 'YOUR_SUPABASE_URL';
-  const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY';
-  ```
-- [ ] 替换 `judge/index.html` 中的占位符（第 67-68 行）
+- [x] 替换 `lib/main.dart` 中的占位符
+- [x] 替换 `judge/index.html` 中的占位符
 
 #### 数据库配置
-在 Supabase Dashboard 的 SQL Editor 中执行：
+- [x] 创建 verdicts 表
+- [x] 启用 RLS (Row Level Security)
+- [x] 允许匿名操作
 
-```sql
--- 创建 verdicts 表
-create table verdicts (
-  id uuid default gen_random_uuid() primary key,
-  task_id text not null,
-  task_title text not null,
-  photo_url text not null,
-  status text default 'pending',
-  created_at timestamp with time zone default now()
-);
-
--- 启用 RLS
-alter table verdicts enable row level security;
-
--- 允许匿名操作
-create policy "Allow anonymous insert" on verdicts for insert with check (true);
-create policy "Allow anonymous update" on verdicts for update using (true);
-create policy "Allow anonymous select" on verdicts for select using (true);
-
--- 创建 proofs Storage bucket
-insert into storage.buckets (id, name) values ('proofs', 'proofs');
-
--- 允许匿名上传
-create policy "Allow anonymous upload" on storage.objects for insert with check (bucket_id = 'proofs');
-create policy "Allow anonymous read" on storage.objects for select using (bucket_id = 'proofs');
-```
+#### Storage 配置
+- [x] 创建 proofs Storage bucket
+- [x] 配置访问策略（Allow anonymous upload/read）
 
 #### 启用匿名认证
-- [ ] Supabase Dashboard → Authentication → Providers
-- [ ] 启用 **Anonymous** 认证
+- [x] Supabase Dashboard → Authentication → Providers → 启用 Anonymous
+
+**测试状态**: ✅ 图片上传成功，数据库记录正常
 
 ---
 
@@ -85,7 +61,7 @@ create policy "Allow anonymous read" on storage.objects for select using (bucket
 
 ---
 
-### 3️⃣ H5 判决页面部署
+### 3️⃣ H5 判决页面部署 🔥 下一步
 
 #### 部署到 Vercel
 ```bash
@@ -167,8 +143,8 @@ vercel --prod
 ## 📊 里程碑
 
 ### MVP 上线（Week 1）
-- [ ] 完成 Supabase 配置
-- [ ] 完成 H5 部署
+- [x] 完成 Supabase 配置
+- [ ] 完成 H5 部署 🔥 当前任务
 - [ ] 测试完整流程
 - [ ] 提交 App Store 审核
 
@@ -187,9 +163,32 @@ vercel --prod
 
 ## 🐛 已知问题
 
-- [ ] Web 端无法使用相机，会调用文件选择器
-- [ ] RevenueCat 在 Web 端不支持
-- [ ] 部分表情符号在 Web 端显示为方框（需要添加字体）
+- [x] ~~Web 端无法使用相机，会调用文件选择器~~ → 浏览器限制，正常行为
+- [x] ~~Web 端图片上传失败~~ → 已修复（使用 uploadBinary）
+- [ ] RevenueCat 在 Web 端不支持 → 正常行为，仅在移动端可用
+- [ ] 部分表情符号在 Web 端显示为方框 → 需要添加字体
+
+---
+
+## ✅ 已完成功能
+
+### 核心功能
+- [x] 任务管理（增删改查）
+- [x] 拍照上传（Web/移动端）
+- [x] Supabase Storage 集成
+- [x] 判决记录数据库
+- [x] 分享功能（share_plus）
+- [x] 教练选择系统
+- [x] 付费墙 UI
+- [x] 惩罚页面（30秒锁屏）
+- [x] 启动页视觉设计
+
+### 技术实现
+- [x] Flutter 跨平台架构
+- [x] Supabase 后端服务
+- [x] 匿名认证
+- [x] Web 端兼容性修复
+- [x] 实时判决监听（轮询方式）
 
 ---
 
@@ -200,3 +199,4 @@ vercel --prod
 - [App Store Connect](https://appstoreconnect.apple.com/)
 - [Google Play Console](https://play.google.com/console)
 - [Vercel Dashboard](https://vercel.com/dashboard)
+- [GitHub 仓库](https://github.com/vanhci/toxic_tracker)
