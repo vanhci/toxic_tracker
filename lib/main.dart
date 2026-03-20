@@ -6,15 +6,8 @@ import 'screens/home_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 开发模式：使用默认配置，允许应用在未配置时也能运行
-  const supabaseUrl = String.fromEnvironment(
-    'SUPABASE_URL',
-    defaultValue: 'https://placeholder.supabase.co',
-  );
-  const supabaseAnonKey = String.fromEnvironment(
-    'SUPABASE_ANON_KEY',
-    defaultValue: 'placeholder-key',
-  );
+  const supabaseUrl = 'https://iyziuawpbpyvwhomtjkh.supabase.co';
+  const supabaseAnonKey = 'sb_publishable_XtedakJDneCB9Lboa4ZhNA_JjTzbaau';
 
   try {
     await Supabase.initialize(
