@@ -1,11 +1,11 @@
 {
-    "name": "toxic_tracker",
-    "short_name": "toxic_tracker",
+    "name": "今天鸽了吗",
+    "short_name": "鸽了吗",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#000000",
+    "theme_color": "#CCFF00",
+    "description": "一款专门骂你的自律 App - 连续鸽了3次，你的死党将有权远程处刑",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
