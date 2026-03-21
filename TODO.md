@@ -123,7 +123,7 @@
 - [x] 深色模式
 - [x] 多语言支持（英文）
 - [x] 小组件（Widget）
-- [ ] Apple Watch 配套应用
+- [x] Apple Watch 配套应用（Swift 代码已创建，需在 Xcode 中添加 Target）
 - [x] 推送通知提醒
 
 ### 商业化扩展
