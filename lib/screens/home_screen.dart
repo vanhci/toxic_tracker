@@ -15,6 +15,7 @@ import 'add_task_screen.dart';
 import 'punishment_screen.dart';
 import 'coach_selection_screen.dart';
 import 'achievement_screen.dart';
+import 'team_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -438,6 +439,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 localeService.locale.languageCode == 'zh' ? '中' : 'EN',
                 style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w900),
               ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          GestureDetector(
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const TeamScreen()),
+            ),
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black, width: 2),
+                color: Colors.grey[300],
+              ),
+              child: const Text('🏢', style: TextStyle(fontSize: 20)),
             ),
           ),
         ],
