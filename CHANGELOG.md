@@ -61,13 +61,13 @@ All notable changes to this project will be documented in this file.
 
 #### Code Quality
 - Analysis: 0 warnings, 0 errors
-- Tests: 20/20 passed
-- Coverage: Task, Coach, Achievement, Team models
+- Tests: 40/40 passed
+- Coverage: Task, Coach, Achievement, Team models, UI state, design
 
 #### Project Statistics
 - Dart files: 25
 - Lines of code: 4,500+
-- Git commits: 55+
+- Git commits: 63+
 
 ### Deployment
 - H5 判决页: https://judge-self.vercel.app
