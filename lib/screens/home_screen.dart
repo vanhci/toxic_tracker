@@ -227,6 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             _buildToxicHeader(), // 毒舌教练头部
+            if (!_isLoading && _tasks.isNotEmpty) _buildStatsPanel(), // 统计面板
             Expanded(
               child: _isLoading
                   ? const Center(child: CircularProgressIndicator(color: Colors.black))
@@ -275,6 +276,47 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  // 统计面板：展示鸽了多少次
+  Widget _buildStatsPanel() {
+    final totalFails = _tasks.fold<int>(0, (sum, t) => sum + t.consecutiveFails);
+    final maxFails = _tasks.fold<int>(0, (max, t) => t.consecutiveFails > max ? t.consecutiveFails : max);
+    final overdueCount = _tasks.where((t) => t.isOverdue).length;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      decoration: const BoxDecoration(
+        color: Color(0xFFFFF9E6),
+        border: Border(bottom: BorderSide(color: Colors.black, width: 2)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildStatItem('🚩', '${_tasks.length}', 'Flag数'),
+          _buildStatItem('🕊️', '$totalFails', '鸽了次数'),
+          _buildStatItem('💀', '$maxFails', '最高连鸽'),
+          _buildStatItem('⏰', '$overdueCount', '已逾期'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatItem(String emoji, String value, String label) {
+    return Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.baseline,
+          textBaseline: TextBaseline.alphabetic,
+          children: [
+            Text(emoji, style: const TextStyle(fontSize: 16)),
+            const SizedBox(width: 4),
+            Text(value, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
+          ],
+        ),
+        Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey)),
+      ],
     );
   }
 
