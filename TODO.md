@@ -141,6 +141,7 @@
 - [x] 完成 H5 部署
 - [x] 代码质量检查（分析 + 测试）
 - [x] Web 构建验证
+- [x] 添加 Supabase 迁移脚本（supabase/migrations.sql）
 - [ ] 测试完整流程（需网络）
 - [ ] RevenueCat 配置
 - [ ] 提交 App Store 审核
