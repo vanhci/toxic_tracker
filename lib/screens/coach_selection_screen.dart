@@ -40,7 +40,7 @@ class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
   void _showPaywallDialog(Coach coach) {
     showDialog(
       context: context,
-      builder: (context) => Dialog(
+      builder: (dialogContext) => Dialog(
         backgroundColor: Colors.transparent,
         elevation: 0,
         child: Container(
@@ -75,7 +75,8 @@ class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
                       : () async {
                           setState(() => _isPurchasing = true);
                           final success = await PurchaseService.purchaseMonthly();
-                          if (success && mounted) {
+                          if (!mounted) return;
+                          if (success) {
                             setState(() {
                               _coaches = Coach.defaultCoaches.map((c) => c.copyWith(isUnlocked: true)).toList();
                             });
@@ -86,7 +87,7 @@ class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
                                 backgroundColor: Color(0xFFCCFF00),
                               ),
                             );
-                          } else if (mounted) {
+                          } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('购买失败或取消，请稍后再试。', style: TextStyle(fontWeight: FontWeight.w900)),
@@ -113,7 +114,7 @@ class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () => Navigator.pop(dialogContext),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
