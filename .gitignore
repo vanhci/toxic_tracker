@@ -50,3 +50,14 @@ app.*.map.json
 
 # Flutter metadata
 .metadata
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Secrets
+secrets/
+*.pem
+*.key
+credentials.json
