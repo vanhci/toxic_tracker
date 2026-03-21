@@ -8,17 +8,7 @@
 
 一款极简风格的自律应用，没有温柔的鼓励，只有无情的嘲讽。连续鸽了3次，你的死党将有权远程处刑。
 
-**[快速开始](QUICKSTART.md)** · **[用户指南](docs/USER_GUIDE.md)** · **[开发文档](DEVELOPMENT.md)**
-
----
-
-## 截图
-
-<p align="center">
-  <img src="docs/screenshots/home.png" width="200" alt="首页"/>
-  <img src="docs/screenshots/punishment.png" width="200" alt="惩罚页面"/>
-  <img src="docs/screenshots/coach.png" width="200" alt="教练选择"/>
-</p>
+**[快速开始](QUICKSTART.md)** · **[用户指南](docs/USER_GUIDE.md)** · **[开发文档](DEVELOPMENT.md)** · **[API 参考](docs/API_REFERENCE.md)**
 
 ---
 
@@ -218,9 +208,12 @@ App 轮询监听判决结果
 
 ## 相关文档
 
-- [TODO.md](./TODO.md) - 待实现功能清单
-- [CLAUDE.md](./CLAUDE.md) - Claude Code 开发指南
-- [docs/enterprise_design.md](./docs/enterprise_design.md) - 企业版设计文档
+- [快速开始](QUICKSTART.md) - 5 分钟快速配置
+- [开发指南](DEVELOPMENT.md) - 开发环境配置
+- [API 参考](docs/API_REFERENCE.md) - 服务层 API 文档
+- [用户指南](docs/USER_GUIDE.md) - 功能使用说明
+- [TODO.md](TODO.md) - 待实现功能清单
+- [CHANGELOG.md](CHANGELOG.md) - 版本更新日志
 
 ## 许可证
 
