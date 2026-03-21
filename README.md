@@ -16,8 +16,27 @@
 - 💀 **远程处刑**：死党选择"立刻处刑"，App 端触发30秒惩罚锁屏
 
 ### 商业化闭环
-- 🎭 **教练选妃系统**：3位毒舌教练人设
-- 💰 **付费墙**：解锁更多教练需订阅（9.9元/月）
+- 🎭 **教练选妃系统**：6位毒舌教练人设
+- 💰 **订阅方案**：月度¥9.9 / 年度¥68 / 终身¥98
+
+### 功能增强
+- 📸 **耻辱海报生成器**：受罚后生成带二维码的精美海报
+- 🏆 **成就系统**：连续完成 N 天获得徽章
+- 📊 **数据统计**：可视化展示鸽了多少次
+- 🌙 **深色模式**：自动适应系统主题
+- 🌍 **多语言**：支持中/英文
+
+### 技术优化
+- 📴 **离线模式**：断网时照片暂存本地，联网后自动上传
+- 📱 **桌面小组件**：iOS/Android 小组件实时显示任务状态
+- ⌚ **Apple Watch**：配套应用查看任务统计
+- 🔔 **推送通知**：任务提醒和截止日期通知
+- 🎤 **自定义教练声音**：TTS 语音 + 可配置音调/语速
+
+### 企业版（团队监督）
+- 🏢 **团队管理**：创建团队，邀请成员
+- 📈 **鸽子排行榜**：查看团队成员鸽子次数排名
+- 👥 **成员管理**：查看成员完成率统计
 
 ## 快速开始
 
@@ -63,21 +82,39 @@ flutter build apk
 
 ```
 lib/
-├── main.dart                    # 应用入口，Supabase 初始化
+├── main.dart                    # 应用入口
 ├── models/
 │   ├── task.dart               # 任务数据模型
-│   └── coach.dart              # 教练模型（3位教练人设）
+│   ├── coach.dart              # 教练模型（6位教练人设）
+│   ├── achievement.dart        # 成就模型
+│   └── team.dart               # 团队模型
 ├── screens/
 │   ├── home_screen.dart        # 首页（任务列表 + 拍照上传 + 分享）
 │   ├── add_task_screen.dart    # 添加任务页面
 │   ├── punishment_screen.dart  # 30秒惩罚锁屏页
-│   └── coach_selection_screen.dart # 教练选妃列表 + 付费墙
-└── services/
-    ├── task_storage.dart       # SharedPreferences 封装
-    ├── upload_service.dart     # Supabase Storage 上传服务
-    ├── verdict_service.dart    # 判决服务（轮询监听）
-    └── purchase_service.dart   # RevenueCat 内购服务
+│   ├── coach_selection_screen.dart # 教练选妃列表 + 付费墙
+│   ├── achievement_screen.dart # 成就展示页面
+│   └── team_screen.dart        # 团队管理页面
+├── services/
+│   ├── task_storage.dart       # SharedPreferences 封装
+│   ├── upload_service.dart     # Supabase Storage 上传服务
+│   ├── verdict_service.dart    # 判决服务（轮询监听）
+│   ├── purchase_service.dart   # RevenueCat 内购服务
+│   ├── notification_service.dart # 推送通知服务
+│   ├── widget_service.dart     # 桌面小组件服务
+│   ├── voice_service.dart      # 教练语音服务
+│   ├── offline_service.dart    # 离线模式服务
+│   ├── theme_service.dart      # 主题服务
+│   ├── locale_service.dart     # 国际化服务
+│   ├── achievement_service.dart # 成就服务
+│   ├── shame_poster_service.dart # 耻辱海报服务
+│   └── team_service.dart       # 团队服务
+└── l10n/
+    └── app_localizations.dart  # 多语言支持
 
+ios/ToxicTrackerWidget/          # iOS 小组件
+android/app/src/main/kotlin/    # Android 小组件
+ios/ToxicTrackerWatch/           # Apple Watch 应用
 judge/
 └── index.html                  # H5 判决页面（部署在 Vercel）
 ```
@@ -92,7 +129,7 @@ judge/
 ### 后端服务
 - **Supabase**：
   - Storage：存储拍照证据
-  - Database：记录判决数据
+  - Database：记录判决数据、团队数据
   - Auth：匿名认证
 - **RevenueCat**：订阅支付管理
 
@@ -125,7 +162,7 @@ judge/
     ↓
 App 轮询监听判决结果
     ↓
-如果"立刻处刑" → 进入30秒惩罚锁屏
+如果"立刻处刑" → 播放教练语音 → 进入30秒惩罚锁屏
 ```
 
 ## 配置清单
@@ -133,21 +170,19 @@ App 轮询监听判决结果
 详细配置请参考 [TODO.md](./TODO.md)
 
 ### 必需配置
-1. **Supabase**：创建项目，配置 Storage 和 Database
-2. **Vercel**：部署 H5 判决页（已完成）
-3. **RevenueCat**：配置订阅商品（可选，商业化需要）
+1. **Supabase**：创建项目，配置 Storage 和 Database ✅ 已完成
+2. **Vercel**：部署 H5 判决页 ✅ 已完成
+3. **RevenueCat**：配置订阅商品（商业化需要）
 
-### 已完成
-- ✅ Supabase 配置
-- ✅ H5 判决页部署
-- ✅ 图片上传 + 分享流程
-- ✅ 判决监听 + 惩罚触发
+### 可选配置
+- Apple Watch：在 Xcode 中添加 Watch Target
+- 团队功能：在 Supabase 创建 teams 和 team_members 表
 
 ## 相关文档
 
 - [TODO.md](./TODO.md) - 待实现功能清单
 - [CLAUDE.md](./CLAUDE.md) - Claude Code 开发指南
-- [SUPABASE_SETUP.md](./SUPABASE_SETUP.md) - Supabase 配置指南
+- [docs/enterprise_design.md](./docs/enterprise_design.md) - 企业版设计文档
 
 ## 许可证
 
