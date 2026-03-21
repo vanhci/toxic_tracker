@@ -61,20 +61,14 @@
 
 ---
 
-### 3️⃣ H5 判决页面部署 🔥 下一步
+### 3️⃣ H5 判决页面部署 ✅ 已完成
 
 #### 部署到 Vercel
-```bash
-cd judge
-vercel --prod
-```
+- [x] 执行 `vercel --prod` 部署
 
 #### 配置域名
-- [ ] 获取 Vercel 分配的域名（如 `toxic-tracker-judge.vercel.app`）
-- [ ] 替换 `lib/screens/home_screen.dart` 第 146 行：
-  ```dart
-  final shareUrl = 'https://your-domain.vercel.app/?verdict=$verdictId&photo=...';
-  ```
+- [x] 域名：https://judge-self.vercel.app
+- [x] 已更新 `lib/screens/home_screen.dart` 分享 URL
 
 ---
 
@@ -144,8 +138,8 @@ vercel --prod
 
 ### MVP 上线（Week 1）
 - [x] 完成 Supabase 配置
-- [ ] 完成 H5 部署 🔥 当前任务
-- [ ] 测试完整流程
+- [x] 完成 H5 部署
+- [ ] 测试完整流程 🔥 当前任务
 - [ ] 提交 App Store 审核
 
 ### 用户增长（Week 2-4）
@@ -189,6 +183,7 @@ vercel --prod
 - [x] 匿名认证
 - [x] Web 端兼容性修复
 - [x] 实时判决监听（轮询方式）
+- [x] H5 判决页部署（Vercel）
 
 ---
 

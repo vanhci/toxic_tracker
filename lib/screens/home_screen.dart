@@ -141,8 +141,8 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
 
-    // 生成分享链接（部署后替换域名）
-    final shareUrl = 'https://your-h5-domain.vercel.app/?verdict=$verdictId&photo=${Uri.encodeComponent(photoUrl)}&task=${Uri.encodeComponent(task.title)}';
+    // 生成分享链接
+    final shareUrl = 'https://judge-self.vercel.app/?verdict=$verdictId&photo=${Uri.encodeComponent(photoUrl)}&task=${Uri.encodeComponent(task.title)}';
     final shareText = '🙄 我又鸽了「${task.title}」\n\n死党们，快来当我的行刑官，帮我做个决定：\n\n$shareUrl\n\n——来自《今天鸽了吗》';
 
     await Share.share(shareText, subject: '我又鸽了，快来处刑我');
