@@ -191,6 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
               failCount: task.consecutiveFails,
               coachName: _currentCoach.name,
               coachEmoji: _currentCoach.emoji,
+              coach: _currentCoach,
             ),
           ),
         );
@@ -262,6 +263,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           failCount: task.consecutiveFails,
                           coachName: _currentCoach.name,
                           coachEmoji: _currentCoach.emoji,
+                          coach: _currentCoach,
                         ),
                       ),
                     );

@@ -5,6 +5,7 @@ import 'services/theme_service.dart';
 import 'services/locale_service.dart';
 import 'services/notification_service.dart';
 import 'services/widget_service.dart';
+import 'services/voice_service.dart';
 import 'l10n/app_localizations.dart';
 import 'screens/home_screen.dart';
 
@@ -45,6 +46,13 @@ void main() async {
     await WidgetService.initialize();
   } catch (e) {
     print('WidgetService 初始化失败: $e');
+  }
+
+  // 初始化语音服务
+  try {
+    await VoiceService.initialize();
+  } catch (e) {
+    print('VoiceService 初始化失败: $e');
   }
 
   await themeService.load();

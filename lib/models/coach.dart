@@ -6,6 +6,10 @@ class Coach {
   final String style;
   final bool isPremium;
   final bool isUnlocked;
+  final String? voiceAsset; // 内置语音资源路径
+  final String? customVoicePath; // 自定义语音本地路径
+  final double voicePitch; // 语音音调 (0.5-2.0)
+  final double voiceRate; // 语速 (0.5-2.0)
 
   Coach({
     required this.id,
@@ -15,6 +19,10 @@ class Coach {
     required this.style,
     this.isPremium = false,
     this.isUnlocked = false,
+    this.voiceAsset,
+    this.customVoicePath,
+    this.voicePitch = 1.0,
+    this.voiceRate = 1.0,
   });
 
   Coach copyWith({
@@ -25,6 +33,10 @@ class Coach {
     String? style,
     bool? isPremium,
     bool? isUnlocked,
+    String? voiceAsset,
+    String? customVoicePath,
+    double? voicePitch,
+    double? voiceRate,
   }) {
     return Coach(
       id: id ?? this.id,
@@ -34,8 +46,18 @@ class Coach {
       style: style ?? this.style,
       isPremium: isPremium ?? this.isPremium,
       isUnlocked: isUnlocked ?? this.isUnlocked,
+      voiceAsset: voiceAsset ?? this.voiceAsset,
+      customVoicePath: customVoicePath ?? this.customVoicePath,
+      voicePitch: voicePitch ?? this.voicePitch,
+      voiceRate: voiceRate ?? this.voiceRate,
     );
   }
+
+  /// 是否有自定义语音
+  bool get hasCustomVoice => customVoicePath != null && customVoicePath!.isNotEmpty;
+
+  /// 是否有内置语音
+  bool get hasBuiltinVoice => voiceAsset != null && voiceAsset!.isNotEmpty;
 
   static List<Coach> defaultCoaches = [
     Coach(

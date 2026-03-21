@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../services/shame_poster_service.dart';
+import '../services/voice_service.dart';
+import '../models/coach.dart';
 
 class PunishmentScreen extends StatefulWidget {
   final String punishmentType;
@@ -8,6 +10,7 @@ class PunishmentScreen extends StatefulWidget {
   final int failCount;
   final String? coachName;
   final String? coachEmoji;
+  final Coach? coach;
 
   const PunishmentScreen({
     super.key,
@@ -16,6 +19,7 @@ class PunishmentScreen extends StatefulWidget {
     this.failCount = 3,
     this.coachName,
     this.coachEmoji,
+    this.coach,
   });
 
   @override
@@ -32,6 +36,14 @@ class _PunishmentScreenState extends State<PunishmentScreen> {
   void initState() {
     super.initState();
     _startCountdown();
+    _playPunishmentVoice();
+  }
+
+  void _playPunishmentVoice() {
+    // 播放惩罚语音
+    if (widget.coach != null) {
+      VoiceService.playPunishment(widget.coach!, widget.taskTitle);
+    }
   }
 
   void _startCountdown() {
