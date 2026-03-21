@@ -4,10 +4,21 @@
 [![Dart](https://img.shields.io/badge/Dart-3.0+-0175C2?logo=dart)](https://dart.dev)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Tests](https://img.shields.io/badge/Tests-54%20passed-brightgreen)](test/)
 
 一款极简风格的自律应用，没有温柔的鼓励，只有无情的嘲讽。连续鸽了3次，你的死党将有权远程处刑。
 
 **[快速开始](QUICKSTART.md)** · **[用户指南](docs/USER_GUIDE.md)** · **[开发文档](DEVELOPMENT.md)**
+
+---
+
+## 截图
+
+<p align="center">
+  <img src="docs/screenshots/home.png" width="200" alt="首页"/>
+  <img src="docs/screenshots/punishment.png" width="200" alt="惩罚页面"/>
+  <img src="docs/screenshots/coach.png" width="200" alt="教练选择"/>
+</p>
 
 ---
 
