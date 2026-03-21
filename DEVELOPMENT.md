@@ -37,6 +37,23 @@ dependencies:
 
   # 内购服务
   purchases_flutter: ^8.1.0
+
+  # 网络状态
+  connectivity_plus: ^6.0.3
+
+  # 文件存储
+  path_provider: ^2.1.2
+
+  # 推送通知
+  flutter_local_notifications: ^17.2.3
+  timezone: ^0.9.4
+
+  # 桌面小组件
+  home_widget: ^0.7.0
+
+  # 语音服务
+  flutter_tts: ^4.0.2
+  audioplayers: ^6.1.0
 ```
 
 ## 常用命令
@@ -71,10 +88,49 @@ flutter analyze
 
 本项目不使用第三方状态管理库，每个 `StatefulWidget` 通过 `setState` 在本地管理状态。
 
+全局状态服务使用 ChangeNotifier：
+- `ThemeService` - 主题切换
+- `LocaleService` - 语言切换
+
 **设计理由**：
 - 应用规模小，无需复杂状态管理
 - 保持代码简洁，降低学习成本
 - 各屏幕独立，无跨页面状态共享需求
+
+### 项目结构
+
+```
+lib/
+├── main.dart                    # 应用入口
+├── models/                      # 数据模型
+│   ├── task.dart               # 任务模型
+│   ├── coach.dart              # 教练模型（6位教练）
+│   ├── achievement.dart        # 成就模型（8个徽章）
+│   └── team.dart               # 团队模型
+├── screens/                     # UI 页面
+│   ├── home_screen.dart        # 首页
+│   ├── add_task_screen.dart    # 添加任务
+│   ├── punishment_screen.dart  # 惩罚锁屏
+│   ├── coach_selection_screen.dart # 教练选择
+│   ├── achievement_screen.dart # 成就展示
+│   └── team_screen.dart        # 团队管理
+├── services/                    # 业务服务
+│   ├── task_storage.dart       # 本地存储
+│   ├── upload_service.dart     # 图片上传
+│   ├── verdict_service.dart    # 判决服务
+│   ├── purchase_service.dart   # 内购服务
+│   ├── notification_service.dart # 推送通知
+│   ├── widget_service.dart     # 桌面小组件
+│   ├── voice_service.dart      # 语音服务
+│   ├── offline_service.dart    # 离线模式
+│   ├── theme_service.dart      # 主题服务
+│   ├── locale_service.dart     # 国际化
+│   ├── achievement_service.dart # 成就系统
+│   ├── shame_poster_service.dart # 耻辱海报
+│   └── team_service.dart       # 团队服务
+└── l10n/
+    └── app_localizations.dart  # 多语言支持
+```
 
 ### 数据流
 
@@ -101,11 +157,12 @@ flutter analyze
 class Task {
   final String id;
   final String title;
-  final DateTime? deadline;
-  final int consecutiveFails;  // 连续鸽了次数
-  final DateTime? lastFailDate;
-  final bool isPunished;       // 是否已被处刑
-  final String? coachId;       // 选择的教练
+  final DateTime createdAt;
+  final DateTime deadline;
+  int consecutiveFails;  // 连续鸽了次数
+  DateTime? lastFailDate;
+
+  bool get isOverdue => DateTime.now().isAfter(deadline);
 }
 ```
 
