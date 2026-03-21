@@ -212,7 +212,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           elevation: 0,
         ).copyWith(
           // 点击时硬阴影消失的交互反馈
-          elevation: MaterialStateProperty.resolveWith((states) => states.contains(MaterialState.pressed) ? 0 : 0),
+          elevation: WidgetStateProperty.resolveWith((states) => states.contains(WidgetState.pressed) ? 0 : 0),
         ),
         child: const Text(
           '确认作死 (绝不反悔)',

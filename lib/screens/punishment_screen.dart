@@ -50,9 +50,9 @@ class _PunishmentScreenState extends State<PunishmentScreen> {
     // 升级为最新的 PopScope API，彻底锁死返回键
     return PopScope(
       canPop: _canExit,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, result) {
         if (!didPop) {
-          // 这里其实可以加个弹窗骂他：“倒计时没完你点什么返回？”
+          // 这里其实可以加个弹窗骂他：”倒计时没完你点什么返回？”
           // 但为了极简，我们直接无视他的挣扎
         }
       },

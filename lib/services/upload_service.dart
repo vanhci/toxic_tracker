@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -19,7 +18,7 @@ class UploadService {
       final response = await _client.storage.from('proofs').uploadBinary(
         path,
         bytes,
-        fileOptions: FileOptions(
+        fileOptions: const FileOptions(
           contentType: 'image/jpeg',
           cacheControl: '3600',
           upsert: false,

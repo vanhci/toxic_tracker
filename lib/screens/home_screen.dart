@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:share_plus/share_plus.dart';
 import '../models/task.dart';
@@ -405,9 +404,9 @@ class _HomeScreenState extends State<HomeScreen> {
             shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.black, width: 3)),
             elevation: 0,
           ).copyWith(
-            // 添加按钮的硬阴影效果 (通过 MaterialStateProperty)
-            shadowColor: MaterialStateProperty.all(Colors.black),
-            elevation: MaterialStateProperty.resolveWith((states) => states.contains(MaterialState.pressed) ? 0 : 4),
+            // 添加按钮的硬阴影效果 (通过 WidgetStateProperty)
+            shadowColor: WidgetStateProperty.all(Colors.black),
+            elevation: WidgetStateProperty.resolveWith((states) => states.contains(WidgetState.pressed) ? 0 : 4),
           ),
           child: const Text('+ 立个Flag (准备打脸)', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
         ),
