@@ -78,6 +78,18 @@ flutter build ios
 flutter build apk
 ```
 
+### 使用 Makefile（推荐）
+
+```bash
+make install      # 安装依赖
+make run-web      # 运行 Web 应用
+make build        # 构建所有平台
+make test         # 运行测试
+make analyze      # 代码分析
+make check        # 分析 + 测试
+make clean        # 清理构建缓存
+```
+
 ## 项目结构
 
 ```
@@ -135,6 +147,12 @@ judge/
 
 ### 部署
 - **H5 判决页**：Vercel（https://judge-self.vercel.app）
+
+### CI/CD
+- **GitHub Actions**：自动化测试和构建
+- **代码质量**：分析 + 测试
+- **自动构建**：Web + Android APK
+- **自动部署**：GitHub Pages
 
 ## 设计风格
 
