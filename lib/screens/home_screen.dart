@@ -7,9 +7,11 @@ import '../models/coach.dart';
 import '../services/task_storage.dart';
 import '../services/upload_service.dart';
 import '../services/verdict_service.dart';
+import '../services/achievement_service.dart';
 import 'add_task_screen.dart';
 import 'punishment_screen.dart';
 import 'coach_selection_screen.dart';
+import 'achievement_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -107,6 +109,9 @@ class _HomeScreenState extends State<HomeScreen> {
     await _storage.updateTask(updatedTask);
     await _loadTasks();
 
+    // 更新成就统计：鸽了次数
+    await AchievementService.updateStats(failsAdded: 1);
+
     // 在 Supabase 创建判决记录，获取 verdictId
     final verdictId = await VerdictService.createVerdict(
       taskId: task.id,
@@ -121,6 +126,8 @@ class _HomeScreenState extends State<HomeScreen> {
       _activeVerdictIds.remove(verdictId);
       if (!mounted) return;
       if (status == VerdictStatus.punish) {
+        // 更新成就统计：被处刑
+        AchievementService.updateStats(executionsAdded: 1);
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -131,6 +138,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         );
       } else {
+        // 更新成就统计：被赦免
+        AchievementService.updateStats(pardonsAdded: 1);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('😮‍💨 死党放你一马了，下次别再犯。', style: TextStyle(fontWeight: FontWeight.w900)),
@@ -292,12 +301,32 @@ class _HomeScreenState extends State<HomeScreen> {
         border: Border(bottom: BorderSide(color: Colors.black, width: 2)),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildStatItem('🚩', '${_tasks.length}', 'Flag数'),
-          _buildStatItem('🕊️', '$totalFails', '鸽了次数'),
-          _buildStatItem('💀', '$maxFails', '最高连鸽'),
-          _buildStatItem('⏰', '$overdueCount', '已逾期'),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildStatItem('🚩', '${_tasks.length}', 'Flag数'),
+                _buildStatItem('🕊️', '$totalFails', '鸽了次数'),
+                _buildStatItem('💀', '$maxFails', '最高连鸽'),
+                _buildStatItem('⏰', '$overdueCount', '已逾期'),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AchievementScreen()),
+            ),
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black, width: 2),
+                color: const Color(0xFFCCFF00),
+              ),
+              child: const Text('🏆', style: TextStyle(fontSize: 20)),
+            ),
+          ),
         ],
       ),
     );
@@ -439,6 +468,8 @@ class _HomeScreenState extends State<HomeScreen> {
               MaterialPageRoute(builder: (context) => const AddTaskScreen()),
             );
             _loadTasks();
+            // 更新成就统计：新增 Flag
+            await AchievementService.updateStats(flagsAdded: 1);
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFCCFF00), // 亮黄色
