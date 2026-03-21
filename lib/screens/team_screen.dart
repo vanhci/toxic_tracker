@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../models/team.dart';
 import '../services/team_service.dart';
+import '../services/user_service.dart';
 
 class TeamScreen extends StatefulWidget {
   const TeamScreen({super.key});
@@ -54,10 +55,11 @@ class _TeamScreenState extends State<TeamScreen> {
 
     setState(() => _isCreating = true);
 
-    // TODO: 获取真实用户 ID
+    // 获取用户 ID
+    final userId = await UserService.getUserId();
     final team = await TeamService.createTeam(
       name: _teamNameController.text,
-      leaderId: 'demo_user',
+      leaderId: userId,
       leaderName: _displayNameController.text.isNotEmpty
           ? _displayNameController.text
           : '队长',
@@ -99,9 +101,11 @@ class _TeamScreenState extends State<TeamScreen> {
 
     setState(() => _isCreating = true);
 
+    // 获取用户 ID
+    final userId = await UserService.getUserId();
     final team = await TeamService.joinTeam(
       inviteCode: _inviteCodeController.text,
-      userId: 'demo_user',
+      userId: userId,
       displayName: _displayNameController.text.isNotEmpty
           ? _displayNameController.text
           : '新成员',

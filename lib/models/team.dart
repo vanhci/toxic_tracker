@@ -28,6 +28,26 @@ class TeamMember {
   double get completionRate =>
       totalTasks > 0 ? completedTasks / totalTasks : 0.0;
 
+  TeamMember copyWith({
+    String? userId,
+    String? displayName,
+    TeamRole? role,
+    DateTime? joinedAt,
+    int? totalTasks,
+    int? completedTasks,
+    int? totalFails,
+  }) {
+    return TeamMember(
+      userId: userId ?? this.userId,
+      displayName: displayName ?? this.displayName,
+      role: role ?? this.role,
+      joinedAt: joinedAt ?? this.joinedAt,
+      totalTasks: totalTasks ?? this.totalTasks,
+      completedTasks: completedTasks ?? this.completedTasks,
+      totalFails: totalFails ?? this.totalFails,
+    );
+  }
+
   factory TeamMember.fromJson(Map<String, dynamic> json) {
     return TeamMember(
       userId: json['user_id'] ?? '',

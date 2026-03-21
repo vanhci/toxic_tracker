@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/team.dart';
+import 'task_storage.dart';
 
 /// 团队服务 - 管理团队相关操作
 class TeamService {
@@ -183,10 +184,22 @@ class TeamService {
           ''')
           .eq('team_id', teamId);
 
-      // TODO: 关联任务统计
-      return response
-          .map<TeamMember>((item) => TeamMember.fromJson(item))
-          .toList();
+      // 获取本地任务统计（仅限当前用户）
+      final storage = TaskStorage();
+      final tasks = await storage.loadTasks();
+      final totalTasks = tasks.length;
+      final completedTasks = tasks.where((t) => !t.isOverdue).length;
+      final totalFails = tasks.fold<int>(0, (sum, t) => sum + t.consecutiveFails);
+
+      return response.map<TeamMember>((item) {
+        final member = TeamMember.fromJson(item);
+        // 当前用户才有本地统计
+        return member.copyWith(
+          totalTasks: totalTasks,
+          completedTasks: completedTasks,
+          totalFails: totalFails,
+        );
+      }).toList();
     } catch (e) {
       debugPrint('获取成员统计失败: $e');
       return [];
