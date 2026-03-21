@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'services/purchase_service.dart';
 import 'services/theme_service.dart';
 import 'services/locale_service.dart';
+import 'services/notification_service.dart';
 import 'l10n/app_localizations.dart';
 import 'screens/home_screen.dart';
 
@@ -28,6 +29,14 @@ void main() async {
     await PurchaseService.initialize();
   } catch (e) {
     print('PurchaseService 初始化失败: $e');
+  }
+
+  // 初始化通知服务
+  try {
+    await NotificationService.initialize();
+    await NotificationService.requestPermission();
+  } catch (e) {
+    print('NotificationService 初始化失败: $e');
   }
 
   await themeService.load();
