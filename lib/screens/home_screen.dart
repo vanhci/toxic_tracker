@@ -8,6 +8,7 @@ import '../services/task_storage.dart';
 import '../services/upload_service.dart';
 import '../services/verdict_service.dart';
 import '../services/achievement_service.dart';
+import '../services/offline_service.dart';
 import '../main.dart';
 import 'add_task_screen.dart';
 import 'punishment_screen.dart';
@@ -29,11 +30,24 @@ class _HomeScreenState extends State<HomeScreen> {
   Coach _currentCoach = Coach.defaultCoaches.first;
   // 存储所有活跃的判决 ID，用于取消监听
   final Set<String> _activeVerdictIds = {};
+  // 离线状态
+  bool _isOnline = true;
+  int _pendingUploads = 0;
 
   @override
   void initState() {
     super.initState();
     _loadTasks();
+    _checkConnectivity();
+  }
+
+  Future<void> _checkConnectivity() async {
+    final online = await OfflineService.isOnline();
+    final pending = await OfflineService.getPendingCount();
+    setState(() {
+      _isOnline = online;
+      _pendingUploads = pending;
+    });
   }
 
   @override
@@ -74,7 +88,43 @@ class _HomeScreenState extends State<HomeScreen> {
       return;
     }
 
-    // 显示上传中提示
+    // 检查网络状态
+    final isOnline = await OfflineService.isOnline();
+
+    // 离线模式：保存到本地
+    if (!isOnline) {
+      final localPath = await OfflineService.savePhotoLocally(task.id, photo);
+      if (localPath != null) {
+        await OfflineService.addToUploadQueue(
+          taskId: task.id,
+          taskTitle: task.title,
+          localPhotoPath: localPath,
+        );
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('📴 离线模式：照片已保存，联网后自动上传', style: TextStyle(fontWeight: FontWeight.w900)),
+              backgroundColor: Color(0xFFFF9800),
+              duration: Duration(seconds: 3),
+            ),
+          );
+        }
+      }
+
+      // 即使离线也要记录失败次数
+      final now = DateTime.now();
+      final updatedTask = task.copyWith(
+        consecutiveFails: task.consecutiveFails + 1,
+        lastFailDate: now,
+      );
+      await _storage.updateTask(updatedTask);
+      await _loadTasks();
+      await AchievementService.updateStats(failsAdded: 1);
+      return;
+    }
+
+    // 在线模式：上传照片
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -301,52 +351,73 @@ class _HomeScreenState extends State<HomeScreen> {
     final maxFails = _tasks.fold<int>(0, (max, t) => t.consecutiveFails > max ? t.consecutiveFails : max);
     final overdueCount = _tasks.where((t) => t.isOverdue).length;
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-      decoration: const BoxDecoration(
-        color: Color(0xFFFFF9E6),
-        border: Border(bottom: BorderSide(color: Colors.black, width: 2)),
-      ),
-      child: Row(
-        children: [
-          Expanded(
+    return Column(
+      children: [
+        // 离线状态指示器
+        if (!_isOnline || _pendingUploads > 0)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            color: const Color(0xFFFF9800),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildStatItem('🚩', '${_tasks.length}', 'Flag数'),
-                _buildStatItem('🕊️', '$totalFails', '鸽了次数'),
-                _buildStatItem('💀', '$maxFails', '最高连鸽'),
-                _buildStatItem('⏰', '$overdueCount', '已逾期'),
+                Icon(_isOnline ? Icons.cloud_upload : Icons.cloud_off, size: 16),
+                const SizedBox(width: 8),
+                Text(
+                  _pendingUploads > 0
+                      ? '待上传 $_pendingUploads 张照片'
+                      : '离线模式',
+                  style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 12),
+                ),
               ],
             ),
           ),
-          GestureDetector(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const AchievementScreen()),
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 2),
-                color: const Color(0xFFCCFF00),
-              ),
-              child: const Text('🏆', style: TextStyle(fontSize: 20)),
-            ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          decoration: const BoxDecoration(
+            color: Color(0xFFFFF9E6),
+            border: Border(bottom: BorderSide(color: Colors.black, width: 2)),
           ),
-          const SizedBox(width: 8),
-          GestureDetector(
-            onTap: () => themeService.toggle(),
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 2),
-                color: Colors.grey[300],
+          child: Row(
+            children: [
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _buildStatItem('🚩', '${_tasks.length}', 'Flag数'),
+                    _buildStatItem('🕊️', '$totalFails', '鸽了次数'),
+                    _buildStatItem('💀', '$maxFails', '最高连鸽'),
+                    _buildStatItem('⏰', '$overdueCount', '已逾期'),
+                  ],
+                ),
               ),
-              child: Icon(
-                themeService.isDark ? Icons.light_mode : Icons.dark_mode,
-                size: 20,
+              GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AchievementScreen()),
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 2),
+                    color: const Color(0xFFCCFF00),
+                  ),
+                  child: const Text('🏆', style: TextStyle(fontSize: 20)),
+                ),
               ),
+              const SizedBox(width: 8),
+              GestureDetector(
+                onTap: () => themeService.toggle(),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 2),
+                    color: Colors.grey[300],
+                  ),
+                  child: Icon(
+                    themeService.isDark ? Icons.light_mode : Icons.dark_mode,
+                    size: 20,
+                  ),
             ),
           ),
           const SizedBox(width: 8),
@@ -366,6 +437,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+    ),
+      ],
     );
   }
 
