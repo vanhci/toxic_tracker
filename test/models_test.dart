@@ -135,7 +135,7 @@ void main() {
 
   group('Achievement Model Tests', () {
     test('Achievement should be created with correct properties', () {
-      final achievement = Achievement(
+      const achievement = Achievement(
         id: 'test-achievement',
         title: 'Test Achievement',
         description: 'Test Description',
@@ -151,7 +151,7 @@ void main() {
     });
 
     test('Achievement copyWith should update isUnlocked correctly', () {
-      final achievement = Achievement(
+      const achievement = Achievement(
         id: 'test-achievement',
         title: 'Test Achievement',
         description: 'Test Description',
