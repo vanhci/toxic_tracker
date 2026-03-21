@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'services/purchase_service.dart';
 import 'services/theme_service.dart';
+import 'services/locale_service.dart';
+import 'l10n/app_localizations.dart';
 import 'screens/home_screen.dart';
 
 final themeService = ThemeService();
+final localeService = LocaleService();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +31,7 @@ void main() async {
   }
 
   await themeService.load();
+  await localeService.load();
 
   runApp(const ToxicTrackerApp());
 }
@@ -38,7 +42,7 @@ class ToxicTrackerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: themeService,
+      listenable: Listenable.merge([themeService, localeService]),
       builder: (context, child) {
         return MaterialApp(
           title: '今天鸽了吗',
@@ -46,6 +50,11 @@ class ToxicTrackerApp extends StatelessWidget {
           theme: _buildLightTheme(),
           darkTheme: _buildDarkTheme(),
           themeMode: themeService.mode,
+          locale: localeService.locale,
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+          ],
           home: const HomeScreen(),
         );
       },

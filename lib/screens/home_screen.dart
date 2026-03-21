@@ -349,6 +349,21 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+          const SizedBox(width: 8),
+          GestureDetector(
+            onTap: () => localeService.toggle(),
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black, width: 2),
+                color: Colors.grey[300],
+              ),
+              child: Text(
+                localeService.locale.languageCode == 'zh' ? '中' : 'EN',
+                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w900),
+              ),
+            ),
+          ),
         ],
       ),
     );
