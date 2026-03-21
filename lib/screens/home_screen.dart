@@ -135,6 +135,9 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context) => PunishmentScreen(
               punishmentType: '死党处刑令',
               taskTitle: task.title,
+              failCount: task.consecutiveFails,
+              coachName: _currentCoach.name,
+              coachEmoji: _currentCoach.emoji,
             ),
           ),
         );
@@ -203,6 +206,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         builder: (context) => PunishmentScreen(
                           punishmentType: '赛博电子木鱼',
                           taskTitle: task.title,
+                          failCount: task.consecutiveFails,
+                          coachName: _currentCoach.name,
+                          coachEmoji: _currentCoach.emoji,
                         ),
                       ),
                     );

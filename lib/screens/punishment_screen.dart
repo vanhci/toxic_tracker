@@ -1,14 +1,21 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../services/shame_poster_service.dart';
 
 class PunishmentScreen extends StatefulWidget {
   final String punishmentType;
   final String taskTitle;
+  final int failCount;
+  final String? coachName;
+  final String? coachEmoji;
 
   const PunishmentScreen({
     super.key,
     required this.punishmentType,
     required this.taskTitle,
+    this.failCount = 3,
+    this.coachName,
+    this.coachEmoji,
   });
 
   @override
@@ -19,6 +26,7 @@ class _PunishmentScreenState extends State<PunishmentScreen> {
   int _countdown = 30; // 30秒的耻辱时刻
   Timer? _timer;
   bool _canExit = false;
+  bool _isGeneratingPoster = false;
 
   @override
   void initState() {
@@ -37,6 +45,28 @@ class _PunishmentScreenState extends State<PunishmentScreen> {
         }
       });
     });
+  }
+
+  Future<void> _shareShamePoster() async {
+    setState(() => _isGeneratingPoster = true);
+
+    try {
+      final posterBytes = await ShamePosterService.generatePoster(
+        taskTitle: widget.taskTitle,
+        failCount: widget.failCount,
+        coachName: widget.coachName ?? 'Amanda',
+        coachEmoji: widget.coachEmoji ?? '🙄',
+        context: context,
+      );
+
+      if (posterBytes != null && mounted) {
+        await ShamePosterService.sharePoster(posterBytes, widget.taskTitle);
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isGeneratingPoster = false);
+      }
+    }
   }
 
   @override
@@ -136,6 +166,30 @@ class _PunishmentScreenState extends State<PunishmentScreen> {
                 ),
 
                 // 底部：极具侮辱性的按钮
+                if (_canExit) ...[
+                  // 分享耻辱海报按钮
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: _isGeneratingPoster ? null : _shareShamePoster,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.black,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.black, width: 4)),
+                        elevation: 0,
+                      ),
+                      child: _isGeneratingPoster
+                          ? const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black),
+                            )
+                          : const Text('📸 分享耻辱证书', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                ],
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
