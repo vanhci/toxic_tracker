@@ -111,34 +111,30 @@ class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
                               setDialogState(() => _isPurchasing = true);
                               final success = await PurchaseService.purchase(_selectedPlan);
 
+                              if (!mounted) return;
+
                               if (success) {
                                 // 先关闭 dialog
-                                Navigator.of(dialogContext).pop();
+                                Navigator.of(this.context).pop();
                                 // 更新 state
                                 setState(() {
                                   _coaches = Coach.defaultCoaches.map((c) => c.copyWith(isUnlocked: true)).toList();
                                 });
-                                if (mounted) {
-                                  ScaffoldMessenger.of(this.context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('🎉 解锁成功！现在你可以选择任意教练了。', style: TextStyle(fontWeight: FontWeight.w900)),
-                                      backgroundColor: Color(0xFFCCFF00),
-                                    ),
-                                  );
-                                }
+                                ScaffoldMessenger.of(this.context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('🎉 解锁成功！现在你可以选择任意教练了。', style: TextStyle(fontWeight: FontWeight.w900)),
+                                    backgroundColor: Color(0xFFCCFF00),
+                                  ),
+                                );
                               } else {
-                                if (mounted) {
-                                  ScaffoldMessenger.of(this.context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('购买失败或取消，请稍后再试。', style: TextStyle(fontWeight: FontWeight.w900)),
-                                      backgroundColor: Color(0xFFFF3333),
-                                    ),
-                                  );
-                                }
+                                ScaffoldMessenger.of(this.context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('购买失败或取消，请稍后再试。', style: TextStyle(fontWeight: FontWeight.w900)),
+                                    backgroundColor: Color(0xFFFF3333),
+                                  ),
+                                );
                               }
-                              if (mounted) {
-                                setDialogState(() => _isPurchasing = false);
-                              }
+                              setDialogState(() => _isPurchasing = false);
                             },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFCCFF00),

@@ -63,6 +63,8 @@ class _TeamScreenState extends State<TeamScreen> {
           : '队长',
     );
 
+    if (!mounted) return;
+
     setState(() => _isCreating = false);
 
     if (team != null) {
@@ -104,6 +106,8 @@ class _TeamScreenState extends State<TeamScreen> {
           ? _displayNameController.text
           : '新成员',
     );
+
+    if (!mounted) return;
 
     setState(() => _isCreating = false);
 
