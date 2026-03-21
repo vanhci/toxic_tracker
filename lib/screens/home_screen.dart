@@ -8,6 +8,7 @@ import '../services/task_storage.dart';
 import '../services/upload_service.dart';
 import '../services/verdict_service.dart';
 import '../services/achievement_service.dart';
+import '../main.dart';
 import 'add_task_screen.dart';
 import 'punishment_screen.dart';
 import 'coach_selection_screen.dart';
@@ -325,6 +326,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: const Color(0xFFCCFF00),
               ),
               child: const Text('🏆', style: TextStyle(fontSize: 20)),
+            ),
+          ),
+          const SizedBox(width: 8),
+          GestureDetector(
+            onTap: () => themeService.toggle(),
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black, width: 2),
+                color: Colors.grey[300],
+              ),
+              child: Icon(
+                themeService.isDark ? Icons.light_mode : Icons.dark_mode,
+                size: 20,
+              ),
             ),
           ),
         ],
