@@ -65,5 +65,32 @@ class Coach {
       isPremium: true,
       isUnlocked: false,
     ),
+    Coach(
+      id: 'coach_tie',
+      name: '铁教练',
+      emoji: '💪',
+      greeting: '你看看你这体格子，爬楼梯都喘，还想立Flag？',
+      style: '暴躁健身',
+      isPremium: true,
+      isUnlocked: false,
+    ),
+    Coach(
+      id: 'teacher_liu',
+      name: '刘班主任',
+      emoji: '👩‍🏫',
+      greeting: '你这个Flag立得，比我当年的教案还草率。',
+      style: '阴阳班主任',
+      isPremium: true,
+      isUnlocked: false,
+    ),
+    Coach(
+      id: 'monk_wu',
+      name: '无为大师',
+      emoji: '🧘',
+      greeting: '施主，放下执念，鸽子也是一种修行。',
+      style: '佛系躺平',
+      isPremium: true,
+      isUnlocked: false,
+    ),
   ];
 }
