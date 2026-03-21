@@ -1,0 +1,29 @@
+# CODEOWNERS - 代码所有者
+#
+# 每个模式后面的用户/团队将自动被请求审查
+# 匹配该模式的 Pull Request
+
+# 默认所有者
+* @vanhci
+
+# Dart/Flutter 代码
+/lib/ @vanhci
+
+# 测试
+/test/ @vanhci
+
+# iOS 配置
+/ios/ @vanhci
+
+# Android 配置
+/android/ @vanhci
+
+# Web 配置
+/web/ @vanhci
+
+# 文档
+/*.md @vanhci
+/docs/ @vanhci
+
+# CI/CD
+/.github/ @vanhci
