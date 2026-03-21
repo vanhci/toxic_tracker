@@ -115,10 +115,10 @@ class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
                                 // 先关闭 dialog
                                 Navigator.of(dialogContext).pop();
                                 // 更新 state
+                                setState(() {
+                                  _coaches = Coach.defaultCoaches.map((c) => c.copyWith(isUnlocked: true)).toList();
+                                });
                                 if (mounted) {
-                                  setState(() {
-                                    _coaches = Coach.defaultCoaches.map((c) => c.copyWith(isUnlocked: true)).toList();
-                                  });
                                   ScaffoldMessenger.of(this.context).showSnackBar(
                                     const SnackBar(
                                       content: Text('🎉 解锁成功！现在你可以选择任意教练了。', style: TextStyle(fontWeight: FontWeight.w900)),

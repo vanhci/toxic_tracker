@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 粗野主义风格小组件布局 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:padding="16dp">
+
+    <!-- 黑色边框 -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/widget_border">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <!-- Emoji -->
+            <TextView
+                android:id="@+id/widget_emoji"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🙄"
+                android:textSize="40sp" />
+
+            <!-- 标题 -->
+            <TextView
+                android:id="@+id/widget_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="今天鸽了吗？"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:maxLines="2"
+                android:layout_marginTop="8dp" />
+
+            <!-- 副标题 -->
+            <TextView
+                android:id="@+id/widget_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#888888"
+                android:gravity="center"
+                android:maxLines="1"
+                android:layout_marginTop="4dp" />
+
+            <!-- 底部荧光黄装饰条 -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#CCFF00"
+                android:layout_marginTop="12dp" />
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

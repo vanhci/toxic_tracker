@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">今天鸽了吗</string>
+    <string name="widget_description">实时显示你的任务状态和鸽子次数</string>
+</resources>

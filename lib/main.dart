@@ -4,6 +4,7 @@ import 'services/purchase_service.dart';
 import 'services/theme_service.dart';
 import 'services/locale_service.dart';
 import 'services/notification_service.dart';
+import 'services/widget_service.dart';
 import 'l10n/app_localizations.dart';
 import 'screens/home_screen.dart';
 
@@ -37,6 +38,13 @@ void main() async {
     await NotificationService.requestPermission();
   } catch (e) {
     print('NotificationService 初始化失败: $e');
+  }
+
+  // 初始化小组件服务
+  try {
+    await WidgetService.initialize();
+  } catch (e) {
+    print('WidgetService 初始化失败: $e');
   }
 
   await themeService.load();

@@ -9,6 +9,7 @@ import '../services/upload_service.dart';
 import '../services/verdict_service.dart';
 import '../services/achievement_service.dart';
 import '../services/offline_service.dart';
+import '../services/widget_service.dart';
 import '../main.dart';
 import 'add_task_screen.dart';
 import 'punishment_screen.dart';
@@ -65,6 +66,8 @@ class _HomeScreenState extends State<HomeScreen> {
       _tasks = tasks;
       _isLoading = false;
     });
+    // 更新小组件数据
+    WidgetService.onTaskChanged();
   }
 
   Future<void> _markAsFailed(Task task) async {
