@@ -16,14 +16,14 @@ class UploadService {
       final bytes = await photo.readAsBytes();
 
       final response = await _client.storage.from('proofs').uploadBinary(
-        path,
-        bytes,
-        fileOptions: const FileOptions(
-          contentType: 'image/jpeg',
-          cacheControl: '3600',
-          upsert: false,
-        ),
-      );
+            path,
+            bytes,
+            fileOptions: const FileOptions(
+              contentType: 'image/jpeg',
+              cacheControl: '3600',
+              upsert: false,
+            ),
+          );
 
       print('上传响应: $response');
 

@@ -84,7 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('不敢拍？那就别说自己鸽了。', style: TextStyle(fontWeight: FontWeight.w900)),
+            content: Text('不敢拍？那就别说自己鸽了。',
+                style: TextStyle(fontWeight: FontWeight.w900)),
             backgroundColor: Colors.black,
           ),
         );
@@ -108,7 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('📴 离线模式：照片已保存，联网后自动上传', style: TextStyle(fontWeight: FontWeight.w900)),
+              content: Text('📴 离线模式：照片已保存，联网后自动上传',
+                  style: TextStyle(fontWeight: FontWeight.w900)),
               backgroundColor: Color(0xFFFF9800),
               duration: Duration(seconds: 3),
             ),
@@ -132,7 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('正在上传你的耻辱照片...', style: TextStyle(fontWeight: FontWeight.w900)),
+          content: Text('正在上传你的耻辱照片...',
+              style: TextStyle(fontWeight: FontWeight.w900)),
           backgroundColor: Colors.black,
           duration: Duration(seconds: 2),
         ),
@@ -147,7 +150,8 @@ class _HomeScreenState extends State<HomeScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('上传失败：$e', style: const TextStyle(fontWeight: FontWeight.w900)),
+            content: Text('上传失败：$e',
+                style: const TextStyle(fontWeight: FontWeight.w900)),
             backgroundColor: const Color(0xFFFF3333),
           ),
         );
@@ -201,7 +205,8 @@ class _HomeScreenState extends State<HomeScreen> {
         AchievementService.updateStats(pardonsAdded: 1);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('😮‍💨 死党放你一马了，下次别再犯。', style: TextStyle(fontWeight: FontWeight.w900)),
+            content: Text('😮‍💨 死党放你一马了，下次别再犯。',
+                style: TextStyle(fontWeight: FontWeight.w900)),
             backgroundColor: Colors.black,
           ),
         );
@@ -209,8 +214,10 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     // 生成分享链接
-    final shareUrl = 'https://judge-self.vercel.app/?verdict=$verdictId&photo=${Uri.encodeComponent(photoUrl)}&task=${Uri.encodeComponent(task.title)}';
-    final shareText = '🙄 我又鸽了「${task.title}」\n\n死党们，快来当我的行刑官，帮我做个决定：\n\n$shareUrl\n\n——来自《今天鸽了吗》';
+    final shareUrl =
+        'https://judge-self.vercel.app/?verdict=$verdictId&photo=${Uri.encodeComponent(photoUrl)}&task=${Uri.encodeComponent(task.title)}';
+    final shareText =
+        '🙄 我又鸽了「${task.title}」\n\n死党们，快来当我的行刑官，帮我做个决定：\n\n$shareUrl\n\n——来自《今天鸽了吗》';
 
     await Share.share(shareText, subject: '我又鸽了，快来处刑我');
 
@@ -232,7 +239,9 @@ class _HomeScreenState extends State<HomeScreen> {
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: Colors.black, width: 4),
-            boxShadow: const [BoxShadow(color: Colors.black, offset: Offset(6, 6))],
+            boxShadow: const [
+              BoxShadow(color: Colors.black, offset: Offset(6, 6))
+            ],
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -241,13 +250,19 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 16),
               const Text(
                 '行刑官已就位',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Colors.black),
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.black),
               ),
               const SizedBox(height: 8),
               Text(
                 '你已经连续鸽了 ${task.consecutiveFails} 次！\n你的脸皮可真够厚的。',
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
               ),
               const SizedBox(height: 24),
               SizedBox(
@@ -272,11 +287,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFFF3333), // 刺眼红
                     foregroundColor: Colors.black,
-                    shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.black, width: 3)),
+                    shape: const RoundedRectangleBorder(
+                        side: BorderSide(color: Colors.black, width: 3)),
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     elevation: 0,
                   ),
-                  child: const Text('接受制裁 (滚去受罚)', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+                  child: const Text('接受制裁 (滚去受罚)',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
                 ),
               ),
             ],
@@ -302,7 +320,8 @@ class _HomeScreenState extends State<HomeScreen> {
             if (!_isLoading && _tasks.isNotEmpty) _buildStatsPanel(), // 统计面板
             Expanded(
               child: _isLoading
-                  ? const Center(child: CircularProgressIndicator(color: Colors.black))
+                  ? const Center(
+                      child: CircularProgressIndicator(color: Colors.black))
                   : _tasks.isEmpty
                       ? _buildEmptyState()
                       : _buildTaskList(),
@@ -339,8 +358,16 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(_currentCoach.name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.grey)),
-                  Text(_currentCoach.greeting, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900, height: 1.2)),
+                  Text(_currentCoach.name,
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w900,
+                          color: Colors.grey)),
+                  Text(_currentCoach.greeting,
+                      style: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w900,
+                          height: 1.2)),
                 ],
               ),
             ),
@@ -353,8 +380,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // 统计面板：展示鸽了多少次
   Widget _buildStatsPanel() {
-    final totalFails = _tasks.fold<int>(0, (sum, t) => sum + t.consecutiveFails);
-    final maxFails = _tasks.fold<int>(0, (max, t) => t.consecutiveFails > max ? t.consecutiveFails : max);
+    final totalFails =
+        _tasks.fold<int>(0, (sum, t) => sum + t.consecutiveFails);
+    final maxFails = _tasks.fold<int>(
+        0, (max, t) => t.consecutiveFails > max ? t.consecutiveFails : max);
     final overdueCount = _tasks.where((t) => t.isOverdue).length;
 
     return Column(
@@ -367,13 +396,13 @@ class _HomeScreenState extends State<HomeScreen> {
             color: const Color(0xFFFF9800),
             child: Row(
               children: [
-                Icon(_isOnline ? Icons.cloud_upload : Icons.cloud_off, size: 16),
+                Icon(_isOnline ? Icons.cloud_upload : Icons.cloud_off,
+                    size: 16),
                 const SizedBox(width: 8),
                 Text(
-                  _pendingUploads > 0
-                      ? '待上传 $_pendingUploads 张照片'
-                      : '离线模式',
-                  style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 12),
+                  _pendingUploads > 0 ? '待上传 $_pendingUploads 张照片' : '离线模式',
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w900, fontSize: 12),
                 ),
               ],
             ),
@@ -400,7 +429,8 @@ class _HomeScreenState extends State<HomeScreen> {
               GestureDetector(
                 onTap: () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const AchievementScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const AchievementScreen()),
                 ),
                 child: Container(
                   padding: const EdgeInsets.all(8),
@@ -424,41 +454,42 @@ class _HomeScreenState extends State<HomeScreen> {
                     themeService.isDark ? Icons.light_mode : Icons.dark_mode,
                     size: 20,
                   ),
-            ),
-          ),
-          const SizedBox(width: 8),
-          GestureDetector(
-            onTap: () => localeService.toggle(),
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 2),
-                color: Colors.grey[300],
+                ),
               ),
-              child: Text(
-                localeService.locale.languageCode == 'zh' ? '中' : 'EN',
-                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w900),
+              const SizedBox(width: 8),
+              GestureDetector(
+                onTap: () => localeService.toggle(),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 2),
+                    color: Colors.grey[300],
+                  ),
+                  child: Text(
+                    localeService.locale.languageCode == 'zh' ? '中' : 'EN',
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w900),
+                  ),
+                ),
               ),
-            ),
-          ),
-          const SizedBox(width: 8),
-          GestureDetector(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const TeamScreen()),
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 2),
-                color: Colors.grey[300],
+              const SizedBox(width: 8),
+              GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const TeamScreen()),
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 2),
+                    color: Colors.grey[300],
+                  ),
+                  child: const Text('🏢', style: TextStyle(fontSize: 20)),
+                ),
               ),
-              child: const Text('🏢', style: TextStyle(fontSize: 20)),
-            ),
+            ],
           ),
-        ],
-      ),
-    ),
+        ),
       ],
     );
   }
@@ -472,10 +503,14 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Text(emoji, style: const TextStyle(fontSize: 16)),
             const SizedBox(width: 4),
-            Text(value, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
+            Text(value,
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
           ],
         ),
-        Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey)),
+        Text(label,
+            style: const TextStyle(
+                fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey)),
       ],
     );
   }
@@ -490,12 +525,15 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Text('🗑️', style: TextStyle(fontSize: 80)),
             SizedBox(height: 20),
-            Text('真干净啊。', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900)),
+            Text('真干净啊。',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.w900)),
             SizedBox(height: 10),
-            Text('连个Flag都不敢立，你的人生也就这样了吧。赶紧点下面按钮作个死。', 
-              textAlign: TextAlign.center, 
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey)
-            ),
+            Text('连个Flag都不敢立，你的人生也就这样了吧。赶紧点下面按钮作个死。',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey)),
           ],
         ),
       ),
@@ -515,14 +553,16 @@ class _HomeScreenState extends State<HomeScreen> {
   // 核心视觉3：粗野主义卡片设计
   Widget _buildBrutalistTaskCard(Task task) {
     final isOverdue = task.isOverdue;
-    
+
     return Container(
       margin: const EdgeInsets.only(bottom: 24),
       decoration: BoxDecoration(
         color: isOverdue ? const Color(0xFFFF3333) : Colors.white,
         border: Border.all(color: Colors.black, width: 3),
         // 这里就是灵魂：死板的黑色硬阴影，没有任何模糊
-        boxShadow: const [BoxShadow(color: Colors.black, offset: Offset(4, 4), blurRadius: 0)],
+        boxShadow: const [
+          BoxShadow(color: Colors.black, offset: Offset(4, 4), blurRadius: 0)
+        ],
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -547,8 +587,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   onTap: () => _deleteTask(task),
                   child: Container(
                     padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 2)),
-                    child: Icon(Icons.close, color: isOverdue ? Colors.white : Colors.black, size: 20),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black, width: 2)),
+                    child: Icon(Icons.close,
+                        color: isOverdue ? Colors.white : Colors.black,
+                        size: 20),
                   ),
                 ),
               ],
@@ -561,7 +604,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.black,
                 child: Text(
                   '🔥 已经连续鸽了 ${task.consecutiveFails} 次！',
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900),
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w900),
                 ),
               ),
             // 粗野按钮
@@ -572,11 +616,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
-                  shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.black, width: 3)),
+                  shape: const RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.black, width: 3)),
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   elevation: 0,
                 ),
-                child: const Text('我颓了 (记一笔)', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
+                child: const Text('我颓了 (记一笔)',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
               ),
             ),
           ],
@@ -605,14 +652,17 @@ class _HomeScreenState extends State<HomeScreen> {
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFCCFF00), // 亮黄色
             foregroundColor: Colors.black,
-            shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.black, width: 3)),
+            shape: const RoundedRectangleBorder(
+                side: BorderSide(color: Colors.black, width: 3)),
             elevation: 0,
           ).copyWith(
             // 添加按钮的硬阴影效果 (通过 WidgetStateProperty)
             shadowColor: WidgetStateProperty.all(Colors.black),
-            elevation: WidgetStateProperty.resolveWith((states) => states.contains(WidgetState.pressed) ? 0 : 4),
+            elevation: WidgetStateProperty.resolveWith(
+                (states) => states.contains(WidgetState.pressed) ? 0 : 4),
           ),
-          child: const Text('+ 立个Flag (准备打脸)', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+          child: const Text('+ 立个Flag (准备打脸)',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
         ),
       ),
     );

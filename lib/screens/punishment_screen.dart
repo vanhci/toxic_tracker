@@ -130,27 +130,39 @@ class _PunishmentScreenState extends State<PunishmentScreen> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(color: Colors.black, width: 4),
-                    boxShadow: const [BoxShadow(color: Colors.black, offset: Offset(8, 8))],
+                    boxShadow: const [
+                      BoxShadow(color: Colors.black, offset: Offset(8, 8))
+                    ],
                   ),
                   child: Column(
                     children: [
                       const Text(
                         '连下面这点事都做不到\n你的人生还有什么希望？',
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey),
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
                       ),
                       const SizedBox(height: 16),
                       Text(
                         '「${widget.taskTitle}」',
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Colors.black),
+                        style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.black),
                       ),
                       const SizedBox(height: 16),
-                      Container(color: Colors.black, height: 4, width: 60), // 极简分割线
+                      Container(
+                          color: Colors.black, height: 4, width: 60), // 极简分割线
                       const SizedBox(height: 16),
                       Text(
                         '当前刑罚：${widget.punishmentType}',
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: Color(0xFFFF3333)),
+                        style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w900,
+                            color: Color(0xFFFF3333)),
                       ),
                     ],
                   ),
@@ -163,7 +175,9 @@ class _PunishmentScreenState extends State<PunishmentScreen> {
                   decoration: BoxDecoration(
                     color: Colors.black,
                     border: Border.all(color: Colors.white, width: 4),
-                    boxShadow: const [BoxShadow(color: Colors.white, offset: Offset(8, 8))],
+                    boxShadow: const [
+                      BoxShadow(color: Colors.white, offset: Offset(8, 8))
+                    ],
                   ),
                   child: Center(
                     child: Text(
@@ -188,16 +202,20 @@ class _PunishmentScreenState extends State<PunishmentScreen> {
                         backgroundColor: Colors.white,
                         foregroundColor: Colors.black,
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.black, width: 4)),
+                        shape: const RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.black, width: 4)),
                         elevation: 0,
                       ),
                       child: _isGeneratingPoster
                           ? const SizedBox(
                               width: 20,
                               height: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black),
+                              child: CircularProgressIndicator(
+                                  strokeWidth: 2, color: Colors.black),
                             )
-                          : const Text('📸 分享耻辱证书', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+                          : const Text('📸 分享耻辱证书',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w900)),
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -207,12 +225,14 @@ class _PunishmentScreenState extends State<PunishmentScreen> {
                   child: ElevatedButton(
                     onPressed: _canExit ? () => Navigator.pop(context) : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: _canExit ? const Color(0xFFCCFF00) : Colors.grey[400],
+                      backgroundColor:
+                          _canExit ? const Color(0xFFCCFF00) : Colors.grey[400],
                       foregroundColor: Colors.black,
                       disabledBackgroundColor: Colors.grey[400],
                       disabledForegroundColor: Colors.black54,
                       padding: const EdgeInsets.symmetric(vertical: 20),
-                      shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.black, width: 4)),
+                      shape: const RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.black, width: 4)),
                       elevation: 0,
                     ),
                     child: Text(

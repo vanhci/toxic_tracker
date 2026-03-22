@@ -17,7 +17,8 @@ class NotificationService {
     tz_data.initializeTimeZones();
 
     // Android 设置
-    const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const androidSettings =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
 
     // iOS 设置
     const iosSettings = DarwinInitializationSettings(

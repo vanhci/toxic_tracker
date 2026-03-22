@@ -85,7 +85,8 @@ class VoiceService {
   }
 
   /// 保存自定义语音
-  static Future<String?> saveCustomVoice(String coachId, String sourcePath) async {
+  static Future<String?> saveCustomVoice(
+      String coachId, String sourcePath) async {
     try {
       final directory = await getApplicationDocumentsDirectory();
       final voiceDir = Directory('${directory.path}/coach_voices');
@@ -125,7 +126,8 @@ class VoiceService {
   /// 播放惩罚语音
   static Future<void> playPunishment(Coach coach, String taskTitle) async {
     final messages = _getPunishmentMessages(coach, taskTitle);
-    final message = messages[DateTime.now().millisecondsSinceEpoch % messages.length];
+    final message =
+        messages[DateTime.now().millisecondsSinceEpoch % messages.length];
     await speak(coach, message);
   }
 

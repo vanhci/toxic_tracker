@@ -18,45 +18,95 @@ class AppLocalizations {
   ];
 
   // 标题
-  String get appTitle => _localizedValues[locale.languageCode]?['appTitle'] ?? _localizedValues['zh']!['appTitle']!;
-  String get homeTitle => _localizedValues[locale.languageCode]?['homeTitle'] ?? _localizedValues['zh']!['homeTitle']!;
+  String get appTitle =>
+      _localizedValues[locale.languageCode]?['appTitle'] ??
+      _localizedValues['zh']!['appTitle']!;
+  String get homeTitle =>
+      _localizedValues[locale.languageCode]?['homeTitle'] ??
+      _localizedValues['zh']!['homeTitle']!;
 
   // 按钮
-  String get addFlag => _localizedValues[locale.languageCode]?['addFlag'] ?? _localizedValues['zh']!['addFlag']!;
-  String get confirm => _localizedValues[locale.languageCode]?['confirm'] ?? _localizedValues['zh']!['confirm']!;
-  String get cancel => _localizedValues[locale.languageCode]?['cancel'] ?? _localizedValues['zh']!['cancel']!;
-  String get share => _localizedValues[locale.languageCode]?['share'] ?? _localizedValues['zh']!['share']!;
+  String get addFlag =>
+      _localizedValues[locale.languageCode]?['addFlag'] ??
+      _localizedValues['zh']!['addFlag']!;
+  String get confirm =>
+      _localizedValues[locale.languageCode]?['confirm'] ??
+      _localizedValues['zh']!['confirm']!;
+  String get cancel =>
+      _localizedValues[locale.languageCode]?['cancel'] ??
+      _localizedValues['zh']!['cancel']!;
+  String get share =>
+      _localizedValues[locale.languageCode]?['share'] ??
+      _localizedValues['zh']!['share']!;
 
   // 任务
-  String get taskTitle => _localizedValues[locale.languageCode]?['taskTitle'] ?? _localizedValues['zh']!['taskTitle']!;
-  String get taskDeadline => _localizedValues[locale.languageCode]?['taskDeadline'] ?? _localizedValues['zh']!['taskDeadline']!;
-  String get noDeadline => _localizedValues[locale.languageCode]?['noDeadline'] ?? _localizedValues['zh']!['noDeadline']!;
-  String get daysLeft => _localizedValues[locale.languageCode]?['daysLeft'] ?? _localizedValues['zh']!['daysLeft']!;
-  String get overdue => _localizedValues[locale.languageCode]?['overdue'] ?? _localizedValues['zh']!['overdue']!;
+  String get taskTitle =>
+      _localizedValues[locale.languageCode]?['taskTitle'] ??
+      _localizedValues['zh']!['taskTitle']!;
+  String get taskDeadline =>
+      _localizedValues[locale.languageCode]?['taskDeadline'] ??
+      _localizedValues['zh']!['taskDeadline']!;
+  String get noDeadline =>
+      _localizedValues[locale.languageCode]?['noDeadline'] ??
+      _localizedValues['zh']!['noDeadline']!;
+  String get daysLeft =>
+      _localizedValues[locale.languageCode]?['daysLeft'] ??
+      _localizedValues['zh']!['daysLeft']!;
+  String get overdue =>
+      _localizedValues[locale.languageCode]?['overdue'] ??
+      _localizedValues['zh']!['overdue']!;
 
   // 操作
-  String get failed => _localizedValues[locale.languageCode]?['failed'] ?? _localizedValues['zh']!['failed']!;
-  String get delete => _localizedValues[locale.languageCode]?['delete'] ?? _localizedValues['zh']!['delete']!;
-  String get edit => _localizedValues[locale.languageCode]?['edit'] ?? _localizedValues['zh']!['edit']!;
+  String get failed =>
+      _localizedValues[locale.languageCode]?['failed'] ??
+      _localizedValues['zh']!['failed']!;
+  String get delete =>
+      _localizedValues[locale.languageCode]?['delete'] ??
+      _localizedValues['zh']!['delete']!;
+  String get edit =>
+      _localizedValues[locale.languageCode]?['edit'] ??
+      _localizedValues['zh']!['edit']!;
 
   // 惩罚
-  String get punishmentTitle => _localizedValues[locale.languageCode]?['punishmentTitle'] ?? _localizedValues['zh']!['punishmentTitle']!;
-  String get goAway => _localizedValues[locale.languageCode]?['goAway'] ?? _localizedValues['zh']!['goAway']!;
-  String get reflect => _localizedValues[locale.languageCode]?['reflect'] ?? _localizedValues['zh']!['reflect']!;
+  String get punishmentTitle =>
+      _localizedValues[locale.languageCode]?['punishmentTitle'] ??
+      _localizedValues['zh']!['punishmentTitle']!;
+  String get goAway =>
+      _localizedValues[locale.languageCode]?['goAway'] ??
+      _localizedValues['zh']!['goAway']!;
+  String get reflect =>
+      _localizedValues[locale.languageCode]?['reflect'] ??
+      _localizedValues['zh']!['reflect']!;
 
   // 教练
-  String get selectCoach => _localizedValues[locale.languageCode]?['selectCoach'] ?? _localizedValues['zh']!['selectCoach']!;
-  String get unlock => _localizedValues[locale.languageCode]?['unlock'] ?? _localizedValues['zh']!['unlock']!;
+  String get selectCoach =>
+      _localizedValues[locale.languageCode]?['selectCoach'] ??
+      _localizedValues['zh']!['selectCoach']!;
+  String get unlock =>
+      _localizedValues[locale.languageCode]?['unlock'] ??
+      _localizedValues['zh']!['unlock']!;
 
   // 统计
-  String get statsFlags => _localizedValues[locale.languageCode]?['statsFlags'] ?? _localizedValues['zh']!['statsFlags']!;
-  String get statsFails => _localizedValues[locale.languageCode]?['statsFails'] ?? _localizedValues['zh']!['statsFails']!;
-  String get statsMaxFails => _localizedValues[locale.languageCode]?['statsMaxFails'] ?? _localizedValues['zh']!['statsMaxFails']!;
-  String get statsOverdue => _localizedValues[locale.languageCode]?['statsOverdue'] ?? _localizedValues['zh']!['statsOverdue']!;
+  String get statsFlags =>
+      _localizedValues[locale.languageCode]?['statsFlags'] ??
+      _localizedValues['zh']!['statsFlags']!;
+  String get statsFails =>
+      _localizedValues[locale.languageCode]?['statsFails'] ??
+      _localizedValues['zh']!['statsFails']!;
+  String get statsMaxFails =>
+      _localizedValues[locale.languageCode]?['statsMaxFails'] ??
+      _localizedValues['zh']!['statsMaxFails']!;
+  String get statsOverdue =>
+      _localizedValues[locale.languageCode]?['statsOverdue'] ??
+      _localizedValues['zh']!['statsOverdue']!;
 
   // 成就
-  String get achievementsTitle => _localizedValues[locale.languageCode]?['achievementsTitle'] ?? _localizedValues['zh']!['achievementsTitle']!;
-  String get achievementsUnlocked => _localizedValues[locale.languageCode]?['achievementsUnlocked'] ?? _localizedValues['zh']!['achievementsUnlocked']!;
+  String get achievementsTitle =>
+      _localizedValues[locale.languageCode]?['achievementsTitle'] ??
+      _localizedValues['zh']!['achievementsTitle']!;
+  String get achievementsUnlocked =>
+      _localizedValues[locale.languageCode]?['achievementsUnlocked'] ??
+      _localizedValues['zh']!['achievementsUnlocked']!;
 
   static const Map<String, Map<String, String>> _localizedValues = {
     'zh': {
@@ -116,7 +166,8 @@ class AppLocalizations {
   };
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override

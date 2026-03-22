@@ -87,14 +87,20 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     children: [
                       const Text(
                         '你要立什么Flag？',
-                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: Colors.black),
+                        style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.black),
                       ),
                       const SizedBox(height: 12),
                       _buildBrutalistTextField(),
                       const SizedBox(height: 40),
                       const Text(
                         '死期 (截止日期)',
-                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: Colors.black),
+                        style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.black),
                       ),
                       const SizedBox(height: 12),
                       _buildBrutalistDatePicker(),
@@ -127,15 +133,20 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(color: Colors.black, width: 3),
-                boxShadow: const [BoxShadow(color: Colors.black, offset: Offset(3, 3), blurRadius: 0)],
+                boxShadow: const [
+                  BoxShadow(
+                      color: Colors.black, offset: Offset(3, 3), blurRadius: 0)
+                ],
               ),
-              child: const Icon(Icons.arrow_back, color: Colors.black, size: 24),
+              child:
+                  const Icon(Icons.arrow_back, color: Colors.black, size: 24),
             ),
           ),
           const SizedBox(width: 20),
           const Text(
             '签生死状',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Colors.black),
+            style: TextStyle(
+                fontSize: 24, fontWeight: FontWeight.w900, color: Colors.black),
           ),
         ],
       ),
@@ -148,7 +159,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: Colors.black, width: 3),
-        boxShadow: const [BoxShadow(color: Colors.black, offset: Offset(6, 6), blurRadius: 0)],
+        boxShadow: const [
+          BoxShadow(color: Colors.black, offset: Offset(6, 6), blurRadius: 0)
+        ],
       ),
       child: TextFormField(
         controller: _titleController,
@@ -157,7 +170,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         minLines: 1,
         decoration: const InputDecoration(
           hintText: '说吧，今天又想假装努力做什么？\n(例如：绝不喝奶茶)',
-          hintStyle: TextStyle(color: Colors.grey, fontSize: 16, fontWeight: FontWeight.normal),
+          hintStyle: TextStyle(
+              color: Colors.grey, fontSize: 16, fontWeight: FontWeight.normal),
           border: InputBorder.none,
           contentPadding: EdgeInsets.all(16),
         ),
@@ -180,7 +194,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         decoration: BoxDecoration(
           color: const Color(0xFFCCFF00), // 亮黄色背景
           border: Border.all(color: Colors.black, width: 3),
-          boxShadow: const [BoxShadow(color: Colors.black, offset: Offset(6, 6), blurRadius: 0)],
+          boxShadow: const [
+            BoxShadow(color: Colors.black, offset: Offset(6, 6), blurRadius: 0)
+          ],
         ),
         child: Row(
           children: [
@@ -188,7 +204,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             const SizedBox(width: 16),
             Text(
               '${_selectedDeadline.year}年${_selectedDeadline.month}月${_selectedDeadline.day}日',
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: Colors.black),
+              style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.black),
             ),
             const Spacer(),
             const Icon(Icons.edit, color: Colors.black, size: 28),
@@ -208,15 +227,18 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           backgroundColor: Colors.black, // 全黑底色，凸显决绝感
           foregroundColor: Colors.white,
           padding: const EdgeInsets.symmetric(vertical: 18),
-          shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.black, width: 3)),
+          shape: const RoundedRectangleBorder(
+              side: BorderSide(color: Colors.black, width: 3)),
           elevation: 0,
         ).copyWith(
           // 点击时硬阴影消失的交互反馈
-          elevation: WidgetStateProperty.resolveWith((states) => states.contains(WidgetState.pressed) ? 0 : 0),
+          elevation: WidgetStateProperty.resolveWith(
+              (states) => states.contains(WidgetState.pressed) ? 0 : 0),
         ),
         child: const Text(
           '确认作死 (绝不反悔)',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900, letterSpacing: 2),
+          style: TextStyle(
+              fontSize: 20, fontWeight: FontWeight.w900, letterSpacing: 2),
         ),
       ),
     );

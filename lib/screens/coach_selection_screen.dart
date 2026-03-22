@@ -23,7 +23,9 @@ class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
     final isPremium = await PurchaseService.isPremiumUser();
     if (isPremium) {
       setState(() {
-        _coaches = Coach.defaultCoaches.map((c) => c.copyWith(isUnlocked: true)).toList();
+        _coaches = Coach.defaultCoaches
+            .map((c) => c.copyWith(isUnlocked: true))
+            .toList();
       });
     }
   }
@@ -45,7 +47,9 @@ class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
 
     if (result == true && mounted) {
       setState(() {
-        _coaches = Coach.defaultCoaches.map((c) => c.copyWith(isUnlocked: true)).toList();
+        _coaches = Coach.defaultCoaches
+            .map((c) => c.copyWith(isUnlocked: true))
+            .toList();
       });
     }
   }
@@ -77,7 +81,8 @@ class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
             onTap: () => Navigator.pop(context),
             child: Container(
               padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 2)),
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 2)),
               child: const Icon(Icons.arrow_back, color: Colors.black),
             ),
           ),
@@ -110,7 +115,9 @@ class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
       decoration: BoxDecoration(
         color: coach.isUnlocked ? Colors.white : Colors.grey[100],
         border: Border.all(color: Colors.black, width: 3),
-        boxShadow: const [BoxShadow(color: Colors.black, offset: Offset(4, 4), blurRadius: 0)],
+        boxShadow: const [
+          BoxShadow(color: Colors.black, offset: Offset(4, 4), blurRadius: 0)
+        ],
       ),
       child: InkWell(
         onTap: () => _selectCoach(coach),
@@ -128,7 +135,8 @@ class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
                       children: [
                         Text(
                           coach.name,
-                          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
+                          style: const TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.w900),
                         ),
                         if (coach.isPremium && !coach.isUnlocked) ...[
                           const SizedBox(width: 8),
@@ -138,17 +146,24 @@ class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
                     ),
                     const SizedBox(height: 4),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 2),
                       color: Colors.black,
                       child: Text(
                         coach.style,
-                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 12),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 12),
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       coach.greeting,
-                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey),
+                      style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),

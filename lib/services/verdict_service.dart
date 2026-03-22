@@ -14,13 +14,17 @@ class VerdictService {
     required String photoUrl,
   }) async {
     try {
-      final response = await _client.from('verdicts').insert({
-        'task_id': taskId,
-        'task_title': taskTitle,
-        'photo_url': photoUrl,
-        'status': 'pending',
-        'created_at': DateTime.now().toIso8601String(),
-      }).select('id').single();
+      final response = await _client
+          .from('verdicts')
+          .insert({
+            'task_id': taskId,
+            'task_title': taskTitle,
+            'photo_url': photoUrl,
+            'status': 'pending',
+            'created_at': DateTime.now().toIso8601String(),
+          })
+          .select('id')
+          .single();
 
       return response['id'] as String;
     } catch (e) {
@@ -37,7 +41,8 @@ class VerdictService {
   ) {
     _timers[verdictId]?.cancel();
 
-    _timers[verdictId] = Timer.periodic(const Duration(seconds: 2), (timer) async {
+    _timers[verdictId] =
+        Timer.periodic(const Duration(seconds: 2), (timer) async {
       try {
         final response = await _client
             .from('verdicts')

@@ -104,8 +104,10 @@ class ToxicTrackerApp extends StatelessWidget {
         onSurface: Colors.black,
       ),
       textTheme: const TextTheme(
-        bodyLarge: TextStyle(color: Colors.black, fontWeight: FontWeight.w900, fontSize: 18),
-        bodyMedium: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
+        bodyLarge: TextStyle(
+            color: Colors.black, fontWeight: FontWeight.w900, fontSize: 18),
+        bodyMedium: TextStyle(
+            color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
       ),
     );
   }
@@ -121,8 +123,10 @@ class ToxicTrackerApp extends StatelessWidget {
         onSurface: Colors.white,
       ),
       textTheme: const TextTheme(
-        bodyLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18),
-        bodyMedium: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+        bodyLarge: TextStyle(
+            color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18),
+        bodyMedium: TextStyle(
+            color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
       ),
     );
   }

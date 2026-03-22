@@ -100,7 +100,8 @@ class OfflineService {
       if (!queueFile.existsSync()) return;
 
       final content = queueFile.readAsStringSync();
-      List<Map<String, dynamic>> queue = List<Map<String, dynamic>>.from(jsonDecode(content));
+      List<Map<String, dynamic>> queue =
+          List<Map<String, dynamic>>.from(jsonDecode(content));
 
       queue.removeWhere((item) => item['localPhotoPath'] == localPhotoPath);
 

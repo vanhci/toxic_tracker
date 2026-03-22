@@ -45,7 +45,8 @@ class Achievement {
     };
   }
 
-  factory Achievement.fromJson(Map<String, dynamic> json, Achievement template) {
+  factory Achievement.fromJson(
+      Map<String, dynamic> json, Achievement template) {
     return template.copyWith(
       isUnlocked: json['isUnlocked'] ?? false,
       unlockedAt: json['unlockedAt'] != null
@@ -56,61 +57,61 @@ class Achievement {
 
   // 预定义成就
   static List<Achievement> get defaultAchievements => [
-    const Achievement(
-      id: 'first_flag',
-      title: '立Flag新手',
-      description: '立下第一个Flag',
-      emoji: '🚩',
-      requirement: 1,
-    ),
-    const Achievement(
-      id: 'flag_collector',
-      title: 'Flag收割机',
-      description: '累计立下10个Flag',
-      emoji: '🏳️',
-      requirement: 10,
-    ),
-    const Achievement(
-      id: 'flag_factory',
-      title: 'Flag制造厂',
-      description: '累计立下50个Flag',
-      emoji: '🏭',
-      requirement: 50,
-    ),
-    const Achievement(
-      id: 'pigeon_master',
-      title: '鸽子大王',
-      description: '累计鸽了10次',
-      emoji: '🕊️',
-      requirement: 10,
-    ),
-    const Achievement(
-      id: 'pigeon_god',
-      title: '鸽神降临',
-      description: '累计鸽了50次',
-      emoji: '👑',
-      requirement: 50,
-    ),
-    const Achievement(
-      id: 'survivor',
-      title: '劫后余生',
-      description: '死党选择"算他过了"',
-      emoji: '😮‍💨',
-      requirement: 1,
-    ),
-    const Achievement(
-      id: 'executed',
-      title: '身经百刑',
-      description: '被处刑10次',
-      emoji: '💀',
-      requirement: 10,
-    ),
-    const Achievement(
-      id: 'no_excuses',
-      title: '从不找借口',
-      description: '连续3个任务不鸽',
-      emoji: '💪',
-      requirement: 3,
-    ),
-  ];
+        const Achievement(
+          id: 'first_flag',
+          title: '立Flag新手',
+          description: '立下第一个Flag',
+          emoji: '🚩',
+          requirement: 1,
+        ),
+        const Achievement(
+          id: 'flag_collector',
+          title: 'Flag收割机',
+          description: '累计立下10个Flag',
+          emoji: '🏳️',
+          requirement: 10,
+        ),
+        const Achievement(
+          id: 'flag_factory',
+          title: 'Flag制造厂',
+          description: '累计立下50个Flag',
+          emoji: '🏭',
+          requirement: 50,
+        ),
+        const Achievement(
+          id: 'pigeon_master',
+          title: '鸽子大王',
+          description: '累计鸽了10次',
+          emoji: '🕊️',
+          requirement: 10,
+        ),
+        const Achievement(
+          id: 'pigeon_god',
+          title: '鸽神降临',
+          description: '累计鸽了50次',
+          emoji: '👑',
+          requirement: 50,
+        ),
+        const Achievement(
+          id: 'survivor',
+          title: '劫后余生',
+          description: '死党选择"算他过了"',
+          emoji: '😮‍💨',
+          requirement: 1,
+        ),
+        const Achievement(
+          id: 'executed',
+          title: '身经百刑',
+          description: '被处刑10次',
+          emoji: '💀',
+          requirement: 10,
+        ),
+        const Achievement(
+          id: 'no_excuses',
+          title: '从不找借口',
+          description: '连续3个任务不鸽',
+          emoji: '💪',
+          requirement: 3,
+        ),
+      ];
 }

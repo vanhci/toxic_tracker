@@ -24,10 +24,12 @@ class LocaleService extends ChangeNotifier {
     notifyListeners();
 
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_key, jsonEncode({
-      'languageCode': locale.languageCode,
-      'countryCode': locale.countryCode,
-    }));
+    await prefs.setString(
+        _key,
+        jsonEncode({
+          'languageCode': locale.languageCode,
+          'countryCode': locale.countryCode,
+        }));
   }
 
   Future<void> toggle() async {

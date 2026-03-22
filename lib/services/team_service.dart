@@ -109,9 +109,7 @@ class TeamService {
   /// 获取团队信息
   static Future<Team?> getTeam(String teamId) async {
     try {
-      final response = await _supabase
-          .from('teams')
-          .select('''
+      final response = await _supabase.from('teams').select('''
             *,
             members:team_members(
               user_id,
@@ -119,9 +117,7 @@ class TeamService {
               role,
               joined_at
             )
-          ''')
-          .eq('id', teamId)
-          .single();
+          ''').eq('id', teamId).single();
 
       return Team.fromJson(response);
     } catch (e) {
@@ -146,9 +142,7 @@ class TeamService {
   /// 获取用户所在的所有团队
   static Future<List<Team>> getUserTeams(String userId) async {
     try {
-      final response = await _supabase
-          .from('team_members')
-          .select('''
+      final response = await _supabase.from('team_members').select('''
             team_id,
             teams(
               id,
@@ -158,8 +152,7 @@ class TeamService {
               settings,
               created_at
             )
-          ''')
-          .eq('user_id', userId);
+          ''').eq('user_id', userId);
 
       return response.map<Team>((item) {
         final teamData = item['teams'] as Map<String, dynamic>;
@@ -174,22 +167,20 @@ class TeamService {
   /// 获取团队成员统计
   static Future<List<TeamMember>> getMemberStats(String teamId) async {
     try {
-      final response = await _supabase
-          .from('team_members')
-          .select('''
+      final response = await _supabase.from('team_members').select('''
             user_id,
             display_name,
             role,
             joined_at
-          ''')
-          .eq('team_id', teamId);
+          ''').eq('team_id', teamId);
 
       // 获取本地任务统计（仅限当前用户）
       final storage = TaskStorage();
       final tasks = await storage.loadTasks();
       final totalTasks = tasks.length;
       final completedTasks = tasks.where((t) => !t.isOverdue).length;
-      final totalFails = tasks.fold<int>(0, (sum, t) => sum + t.consecutiveFails);
+      final totalFails =
+          tasks.fold<int>(0, (sum, t) => sum + t.consecutiveFails);
 
       return response.map<TeamMember>((item) {
         final member = TeamMember.fromJson(item);
@@ -214,8 +205,7 @@ class TeamService {
     try {
       await _supabase
           .from('teams')
-          .update({'settings': settings.toJson()})
-          .eq('id', teamId);
+          .update({'settings': settings.toJson()}).eq('id', teamId);
       return true;
     } catch (e) {
       debugPrint('更新团队设置失败: $e');

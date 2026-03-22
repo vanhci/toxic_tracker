@@ -75,7 +75,10 @@ class _PaywallScreenState extends State<PaywallScreen> {
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: Colors.black, width: 3),
-            boxShadow: const [BoxShadow(color: Colors.black, offset: Offset(4, 4), blurRadius: 0)],
+            boxShadow: const [
+              BoxShadow(
+                  color: Colors.black, offset: Offset(4, 4), blurRadius: 0)
+            ],
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -85,7 +88,8 @@ class _PaywallScreenState extends State<PaywallScreen> {
               Text(
                 message,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
               ),
               const SizedBox(height: 20),
               SizedBox(
@@ -98,11 +102,14 @@ class _PaywallScreenState extends State<PaywallScreen> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFCCFF00),
                     foregroundColor: Colors.black,
-                    shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.black, width: 3)),
+                    shape: const RoundedRectangleBorder(
+                        side: BorderSide(color: Colors.black, width: 3)),
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     elevation: 0,
                   ),
-                  child: const Text('继续', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+                  child: const Text('继续',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
                 ),
               ),
             ],
@@ -123,7 +130,10 @@ class _PaywallScreenState extends State<PaywallScreen> {
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: Colors.black, width: 3),
-            boxShadow: const [BoxShadow(color: Colors.black, offset: Offset(4, 4), blurRadius: 0)],
+            boxShadow: const [
+              BoxShadow(
+                  color: Colors.black, offset: Offset(4, 4), blurRadius: 0)
+            ],
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -133,7 +143,8 @@ class _PaywallScreenState extends State<PaywallScreen> {
               Text(
                 message,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
               ),
               const SizedBox(height: 20),
               SizedBox(
@@ -143,11 +154,14 @@ class _PaywallScreenState extends State<PaywallScreen> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.grey[300],
                     foregroundColor: Colors.black,
-                    shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.black, width: 3)),
+                    shape: const RoundedRectangleBorder(
+                        side: BorderSide(color: Colors.black, width: 3)),
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     elevation: 0,
                   ),
-                  child: const Text('继续被 Amanda 骂', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
+                  child: const Text('继续被 Amanda 骂',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
                 ),
               ),
             ],
@@ -187,7 +201,8 @@ class _PaywallScreenState extends State<PaywallScreen> {
           Text(
             '怎么，连杯奶茶钱都不舍得？\n还谈什么自律？',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900, height: 1.4),
+            style: TextStyle(
+                fontSize: 22, fontWeight: FontWeight.w900, height: 1.4),
           ),
         ],
       ),
@@ -235,7 +250,9 @@ class _PaywallScreenState extends State<PaywallScreen> {
       decoration: BoxDecoration(
         color: isUnlocked ? Colors.white : Colors.grey[100],
         border: Border.all(color: Colors.black, width: 3),
-        boxShadow: const [BoxShadow(color: Colors.black, offset: Offset(4, 4), blurRadius: 0)],
+        boxShadow: const [
+          BoxShadow(color: Colors.black, offset: Offset(4, 4), blurRadius: 0)
+        ],
       ),
       child: Row(
         children: [
@@ -247,7 +264,9 @@ class _PaywallScreenState extends State<PaywallScreen> {
               children: [
                 Row(
                   children: [
-                    Text(name, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
+                    Text(name,
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w900)),
                     if (!isUnlocked) ...[
                       const SizedBox(width: 8),
                       const Text('🔒', style: TextStyle(fontSize: 18)),
@@ -256,7 +275,8 @@ class _PaywallScreenState extends State<PaywallScreen> {
                 ),
                 const SizedBox(height: 4),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   color: isFree ? const Color(0xFFCCFF00) : Colors.black,
                   child: Text(
                     status,
@@ -298,7 +318,8 @@ class _PaywallScreenState extends State<PaywallScreen> {
                   backgroundColor: const Color(0xFFCCFF00),
                   foregroundColor: Colors.black,
                   disabledBackgroundColor: Colors.grey[300],
-                  shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.black, width: 3)),
+                  shape: const RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.black, width: 3)),
                   padding: const EdgeInsets.symmetric(vertical: 18),
                   elevation: 0,
                 ).copyWith(
@@ -309,9 +330,12 @@ class _PaywallScreenState extends State<PaywallScreen> {
                     ? const SizedBox(
                         width: 20,
                         height: 20,
-                        child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black),
+                        child: CircularProgressIndicator(
+                            strokeWidth: 2, color: Colors.black),
                       )
-                    : const Text('¥19.9 施舍你一年', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
+                    : const Text('¥19.9 施舍你一年',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w900)),
               ),
             ),
             const SizedBox(height: 12),
@@ -324,11 +348,14 @@ class _PaywallScreenState extends State<PaywallScreen> {
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
                   disabledBackgroundColor: Colors.grey[600],
-                  shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.black, width: 3)),
+                  shape: const RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.black, width: 3)),
                   padding: const EdgeInsets.symmetric(vertical: 18),
                   elevation: 0,
                 ),
-                child: const Text('¥68 永远买断这破App', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
+                child: const Text('¥68 永远买断这破App',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w900)),
               ),
             ),
             const SizedBox(height: 16),
@@ -338,7 +365,10 @@ class _PaywallScreenState extends State<PaywallScreen> {
             onPressed: () => Navigator.pop(context),
             child: Text(
               _isPremium ? '已解锁全部教练，继续' : '算了，我继续被 Amanda 骂',
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey),
+              style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey),
             ),
           ),
         ],

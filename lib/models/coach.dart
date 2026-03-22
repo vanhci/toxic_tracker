@@ -54,7 +54,8 @@ class Coach {
   }
 
   /// 是否有自定义语音
-  bool get hasCustomVoice => customVoicePath != null && customVoicePath!.isNotEmpty;
+  bool get hasCustomVoice =>
+      customVoicePath != null && customVoicePath!.isNotEmpty;
 
   /// 是否有内置语音
   bool get hasBuiltinVoice => voiceAsset != null && voiceAsset!.isNotEmpty;

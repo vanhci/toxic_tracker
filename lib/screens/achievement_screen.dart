@@ -39,7 +39,8 @@ class _AchievementScreenState extends State<AchievementScreen> {
             _buildHeader(unlockedCount),
             Expanded(
               child: _isLoading
-                  ? const Center(child: CircularProgressIndicator(color: Colors.black))
+                  ? const Center(
+                      child: CircularProgressIndicator(color: Colors.black))
                   : _buildAchievementGrid(),
             ),
           ],
@@ -60,7 +61,8 @@ class _AchievementScreenState extends State<AchievementScreen> {
             onTap: () => Navigator.pop(context),
             child: Container(
               padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 2)),
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 2)),
               child: const Icon(Icons.arrow_back, color: Colors.black),
             ),
           ),
@@ -69,10 +71,15 @@ class _AchievementScreenState extends State<AchievementScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('🏆 成就殿堂', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
+                const Text('🏆 成就殿堂',
+                    style:
+                        TextStyle(fontSize: 24, fontWeight: FontWeight.w900)),
                 Text(
                   '已解锁 $unlockedCount/${_achievements.length}',
-                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey),
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey),
                 ),
               ],
             ),
@@ -115,7 +122,8 @@ class _AchievementScreenState extends State<AchievementScreen> {
         children: [
           Text(
             isUnlocked ? achievement.emoji : '🔒',
-            style: TextStyle(fontSize: 40, color: isUnlocked ? null : Colors.grey[400]),
+            style: TextStyle(
+                fontSize: 40, color: isUnlocked ? null : Colors.grey[400]),
           ),
           const SizedBox(height: 8),
           Text(

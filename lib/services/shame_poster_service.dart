@@ -62,7 +62,8 @@ class ShamePosterService {
       ),
       textDirection: TextDirection.ltr,
     )..layout();
-    coachLabelPainter.paint(canvas, Offset((400 - coachLabelPainter.width) / 2, 190));
+    coachLabelPainter.paint(
+        canvas, Offset((400 - coachLabelPainter.width) / 2, 190));
 
     // 任务标题
     final taskPainter = TextPainter(
@@ -135,9 +136,13 @@ class ShamePosterService {
   }
 
   /// 分享耻辱海报
-  static Future<void> sharePoster(Uint8List posterBytes, String taskTitle) async {
+  static Future<void> sharePoster(
+      Uint8List posterBytes, String taskTitle) async {
     await Share.shareXFiles(
-      [XFile.fromData(posterBytes, name: 'shame_poster.png', mimeType: 'image/png')],
+      [
+        XFile.fromData(posterBytes,
+            name: 'shame_poster.png', mimeType: 'image/png')
+      ],
       text: '💀 我因为「$taskTitle」被处刑了，欢迎围观我的耻辱时刻！',
       subject: '我的耻辱证书',
     );

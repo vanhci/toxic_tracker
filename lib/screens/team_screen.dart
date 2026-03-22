@@ -46,7 +46,8 @@ class _TeamScreenState extends State<TeamScreen> {
     if (_teamNameController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('请输入团队名称', style: TextStyle(fontWeight: FontWeight.w900)),
+          content:
+              Text('请输入团队名称', style: TextStyle(fontWeight: FontWeight.w900)),
           backgroundColor: Color(0xFFFF3333),
         ),
       );
@@ -74,14 +75,16 @@ class _TeamScreenState extends State<TeamScreen> {
       setState(() => _team = team);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('🎉 团队创建成功！', style: TextStyle(fontWeight: FontWeight.w900)),
+          content:
+              Text('🎉 团队创建成功！', style: TextStyle(fontWeight: FontWeight.w900)),
           backgroundColor: Color(0xFFCCFF00),
         ),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('创建失败，请稍后重试', style: TextStyle(fontWeight: FontWeight.w900)),
+          content:
+              Text('创建失败，请稍后重试', style: TextStyle(fontWeight: FontWeight.w900)),
           backgroundColor: Color(0xFFFF3333),
         ),
       );
@@ -92,7 +95,8 @@ class _TeamScreenState extends State<TeamScreen> {
     if (_inviteCodeController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('请输入邀请码', style: TextStyle(fontWeight: FontWeight.w900)),
+          content:
+              Text('请输入邀请码', style: TextStyle(fontWeight: FontWeight.w900)),
           backgroundColor: Color(0xFFFF3333),
         ),
       );
@@ -120,14 +124,16 @@ class _TeamScreenState extends State<TeamScreen> {
       setState(() => _team = team);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('🎉 加入团队成功！', style: TextStyle(fontWeight: FontWeight.w900)),
+          content:
+              Text('🎉 加入团队成功！', style: TextStyle(fontWeight: FontWeight.w900)),
           backgroundColor: Color(0xFFCCFF00),
         ),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('邀请码无效或已过期', style: TextStyle(fontWeight: FontWeight.w900)),
+          content:
+              Text('邀请码无效或已过期', style: TextStyle(fontWeight: FontWeight.w900)),
           backgroundColor: Color(0xFFFF3333),
         ),
       );
@@ -145,7 +151,9 @@ class _TeamScreenState extends State<TeamScreen> {
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: Colors.black, width: 4),
-            boxShadow: const [BoxShadow(color: Colors.black, offset: Offset(6, 6))],
+            boxShadow: const [
+              BoxShadow(color: Colors.black, offset: Offset(6, 6))
+            ],
           ),
           child: SingleChildScrollView(
             child: Column(
@@ -192,13 +200,16 @@ class _TeamScreenState extends State<TeamScreen> {
                             height: 20,
                             child: CircularProgressIndicator(strokeWidth: 2),
                           )
-                        : const Text('创建', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+                        : const Text('创建',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w900)),
                   ),
                 ),
                 const SizedBox(height: 8),
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('取消', style: TextStyle(fontWeight: FontWeight.bold)),
+                  child: const Text('取消',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
@@ -219,7 +230,9 @@ class _TeamScreenState extends State<TeamScreen> {
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: Colors.black, width: 4),
-            boxShadow: const [BoxShadow(color: Colors.black, offset: Offset(6, 6))],
+            boxShadow: const [
+              BoxShadow(color: Colors.black, offset: Offset(6, 6))
+            ],
           ),
           child: SingleChildScrollView(
             child: Column(
@@ -239,7 +252,10 @@ class _TeamScreenState extends State<TeamScreen> {
                     border: OutlineInputBorder(),
                   ),
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900, letterSpacing: 8),
+                  style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 8),
                 ),
                 const SizedBox(height: 12),
                 TextField(
@@ -268,13 +284,16 @@ class _TeamScreenState extends State<TeamScreen> {
                             height: 20,
                             child: CircularProgressIndicator(strokeWidth: 2),
                           )
-                        : const Text('加入', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+                        : const Text('加入',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w900)),
                   ),
                 ),
                 const SizedBox(height: 8),
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('取消', style: TextStyle(fontWeight: FontWeight.bold)),
+                  child: const Text('取消',
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
@@ -290,7 +309,8 @@ class _TeamScreenState extends State<TeamScreen> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: _isLoading
-            ? const Center(child: CircularProgressIndicator(color: Colors.black))
+            ? const Center(
+                child: CircularProgressIndicator(color: Colors.black))
             : _team == null
                 ? _buildNoTeamView()
                 : _buildTeamView(),
@@ -314,7 +334,8 @@ class _TeamScreenState extends State<TeamScreen> {
           const Text(
             '创建一个团队，邀请你的朋友一起互相监督吧！',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey),
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey),
           ),
           const SizedBox(height: 40),
           SizedBox(
@@ -329,7 +350,8 @@ class _TeamScreenState extends State<TeamScreen> {
                 ),
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
-              child: const Text('创建团队', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+              child: const Text('创建团队',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
             ),
           ),
           const SizedBox(height: 16),
@@ -345,7 +367,8 @@ class _TeamScreenState extends State<TeamScreen> {
                 ),
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
-              child: const Text('加入团队', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
+              child: const Text('加入团队',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
             ),
           ),
           const SizedBox(height: 40),
@@ -358,7 +381,9 @@ class _TeamScreenState extends State<TeamScreen> {
             ),
             child: const Column(
               children: [
-                Text('💼 企业版功能', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
+                Text('💼 企业版功能',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
                 SizedBox(height: 8),
                 Text(
                   '• 团队成员互相监督\n'
@@ -413,7 +438,8 @@ class _TeamScreenState extends State<TeamScreen> {
             onTap: () => Navigator.pop(context),
             child: Container(
               padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 2)),
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 2)),
               child: const Icon(Icons.arrow_back, color: Colors.black),
             ),
           ),
@@ -424,11 +450,15 @@ class _TeamScreenState extends State<TeamScreen> {
               children: [
                 Text(
                   _team!.name,
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.w900),
                 ),
                 Text(
                   '${_team!.memberCount} 位成员',
-                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey),
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey),
                 ),
               ],
             ),
@@ -455,10 +485,15 @@ class _TeamScreenState extends State<TeamScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('邀请码', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                const Text('邀请码',
+                    style:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
                 Text(
                   _team!.inviteCode ?? '------',
-                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w900, letterSpacing: 4),
+                  style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 4),
                 ),
               ],
             ),
@@ -468,7 +503,8 @@ class _TeamScreenState extends State<TeamScreen> {
               Clipboard.setData(ClipboardData(text: _team!.inviteCode ?? ''));
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('邀请码已复制', style: TextStyle(fontWeight: FontWeight.w900)),
+                  content: Text('邀请码已复制',
+                      style: TextStyle(fontWeight: FontWeight.w900)),
                   backgroundColor: Colors.black,
                 ),
               );
@@ -492,7 +528,8 @@ class _TeamScreenState extends State<TeamScreen> {
         ),
         const SizedBox(height: 12),
         if (leaderboard.isEmpty)
-          const Text('暂无数据', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey))
+          const Text('暂无数据',
+              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey))
         else
           ...leaderboard.asMap().entries.map((entry) {
             final index = entry.key;
@@ -554,65 +591,77 @@ class _TeamScreenState extends State<TeamScreen> {
             ),
             Text(
               '${_team!.memberCount} 人',
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey),
+              style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey),
             ),
           ],
         ),
         const SizedBox(height: 12),
         ..._team!.members.map((member) => Container(
-          margin: const EdgeInsets.only(bottom: 8),
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black, width: 2),
-          ),
-          child: Row(
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  border: Border.all(color: Colors.black, width: 2),
-                ),
-                child: Center(
-                  child: Text(
-                    member.displayName[0].toUpperCase(),
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
-                  ),
-                ),
+              margin: const EdgeInsets.only(bottom: 8),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black, width: 2),
               ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      member.displayName,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
-                    ),
-                    Text(
-                      member.role.name.toUpperCase(),
-                      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+              child: Row(
                 children: [
-                  Text(
-                    '${(member.completionRate * 100).toStringAsFixed(0)}%',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      border: Border.all(color: Colors.black, width: 2),
+                    ),
+                    child: Center(
+                      child: Text(
+                        member.displayName[0].toUpperCase(),
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w900),
+                      ),
+                    ),
                   ),
-                  const Text(
-                    '完成率',
-                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.grey),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          member.displayName,
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w900),
+                        ),
+                        Text(
+                          member.role.name.toUpperCase(),
+                          style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        '${(member.completionRate * 100).toStringAsFixed(0)}%',
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w900),
+                      ),
+                      const Text(
+                        '完成率',
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
-        )),
+            )),
       ],
     );
   }

@@ -34,7 +34,8 @@ class WidgetService {
 
       // 统计数据
       final overdueTasks = tasks.where((t) => t.isOverdue).toList();
-      final totalFails = tasks.fold<int>(0, (sum, t) => sum + t.consecutiveFails);
+      final totalFails =
+          tasks.fold<int>(0, (sum, t) => sum + t.consecutiveFails);
 
       // 鸽王称号
       String title = '今天鸽了吗？';

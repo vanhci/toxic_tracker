@@ -19,7 +19,8 @@ class Task {
 
   int get daysUntilDeadline {
     final now = DateTime.now();
-    final difference = deadline.difference(DateTime(now.year, now.month, now.day));
+    final difference =
+        deadline.difference(DateTime(now.year, now.month, now.day));
     return difference.inDays;
   }
 
