@@ -2,7 +2,6 @@ import 'package:purchases_flutter/purchases_flutter.dart';
 
 /// 订阅类型
 enum SubscriptionType {
-  monthly,
   yearly,
   lifetime,
 }
@@ -27,13 +26,12 @@ class SubscriptionOption {
 }
 
 class PurchaseService {
-  static const String _apiKey = 'YOUR_REVENUECAT_API_KEY'; // TODO: 替换为你的 RevenueCat API Key
-  static const String _entitlementId = 'pro'; // RevenueCat 后台配置的权益标识
+  static const String _apiKey = 'app5904c87b38';
+  static const String _entitlementId = 'toxic_tracker Pro';
 
-  // Package identifiers (需要在 RevenueCat 后台配置)
-  static const String _monthlyPackage = 'monthly';
-  static const String _yearlyPackage = 'yearly';
-  static const String _lifetimePackage = 'lifetime';
+  // Package identifiers (RevenueCat 后台配置)
+  static const String _yearlyPackage = 'toxic_yearly_19.9';
+  static const String _lifetimePackage = 'toxic_lifetime_68';
 
   static Future<void> initialize() async {
     await Purchases.configure(PurchasesConfiguration(_apiKey));
@@ -58,31 +56,13 @@ class PurchaseService {
 
       final options = <SubscriptionOption>[];
 
-      // 月度订阅
-      final monthly = current.getPackage(_monthlyPackage);
-      if (monthly != null) {
-        options.add(SubscriptionOption(
-          type: SubscriptionType.monthly,
-          title: '月度订阅',
-          price: monthly.storeProduct.priceString,
-          packageIdentifier: monthly.identifier,
-        ));
-      }
-
       // 年度订阅
       final yearly = current.getPackage(_yearlyPackage);
       if (yearly != null) {
-        final monthlyPrice = monthly?.storeProduct.price ?? 0;
-        final yearlyPrice = yearly.storeProduct.price;
-        final yearlyMonthly = yearlyPrice / 12;
-        final savings = ((1 - yearlyMonthly / monthlyPrice) * 100).round();
-
         options.add(SubscriptionOption(
           type: SubscriptionType.yearly,
           title: '年度订阅',
           price: yearly.storeProduct.priceString,
-          originalPrice: '¥118.8/年',
-          savings: '省 $savings%',
           packageIdentifier: yearly.identifier,
         ));
       }
@@ -108,23 +88,15 @@ class PurchaseService {
   static List<SubscriptionOption> _getDefaultOptions() {
     return const [
       SubscriptionOption(
-        type: SubscriptionType.monthly,
-        title: '月度订阅',
-        price: '¥9.9/月',
-        packageIdentifier: _monthlyPackage,
-      ),
-      SubscriptionOption(
         type: SubscriptionType.yearly,
         title: '年度订阅',
-        price: '¥68/年',
-        originalPrice: '¥118.8/年',
-        savings: '省 42%',
+        price: '¥19.9/年',
         packageIdentifier: _yearlyPackage,
       ),
       SubscriptionOption(
         type: SubscriptionType.lifetime,
         title: '终身会员',
-        price: '¥98',
+        price: '¥68',
         packageIdentifier: _lifetimePackage,
       ),
     ];
@@ -139,9 +111,6 @@ class PurchaseService {
 
       Package? package;
       switch (type) {
-        case SubscriptionType.monthly:
-          package = current.getPackage(_monthlyPackage);
-          break;
         case SubscriptionType.yearly:
           package = current.getPackage(_yearlyPackage);
           break;
@@ -158,11 +127,6 @@ class PurchaseService {
       print('购买失败: $e');
       return false;
     }
-  }
-
-  /// 购买月度订阅（兼容旧 API）
-  static Future<bool> purchaseMonthly() async {
-    return await purchase(SubscriptionType.monthly);
   }
 
   /// 恢复购买

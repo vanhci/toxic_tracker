@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'services/purchase_service.dart';
 import 'services/theme_service.dart';
 import 'services/locale_service.dart';
 import 'services/notification_service.dart';
@@ -28,9 +29,12 @@ void main() async {
   }
 
   try {
-    await PurchaseService.initialize();
+    await Purchases.setLogLevel(LogLevel.debug);
+    const appleApiKey = 'app5904c87b38';
+    final configuration = PurchasesConfiguration(appleApiKey);
+    await Purchases.configure(configuration);
   } catch (e) {
-    print('PurchaseService 初始化失败: $e');
+    print('RevenueCat 初始化失败: $e');
   }
 
   // 初始化通知服务
@@ -79,6 +83,9 @@ class ToxicTrackerApp extends StatelessWidget {
           supportedLocales: AppLocalizations.supportedLocales,
           localizationsDelegates: const [
             AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
           ],
           home: const HomeScreen(),
         );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/coach.dart';
 import '../services/purchase_service.dart';
+import 'paywall_screen.dart';
 
 class CoachSelectionScreen extends StatefulWidget {
   const CoachSelectionScreen({super.key});
@@ -11,8 +12,6 @@ class CoachSelectionScreen extends StatefulWidget {
 
 class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
   List<Coach> _coaches = Coach.defaultCoaches;
-  bool _isPurchasing = false;
-  SubscriptionType _selectedPlan = SubscriptionType.yearly;
 
   @override
   void initState() {
@@ -38,191 +37,17 @@ class _CoachSelectionScreenState extends State<CoachSelectionScreen> {
     Navigator.pop(context, coach);
   }
 
-  void _showPaywallDialog(Coach coach) {
-    showDialog(
-      context: context,
-      builder: (dialogContext) => StatefulBuilder(
-        builder: (context, setDialogState) => Dialog(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          child: Container(
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Colors.black, width: 4),
-              boxShadow: const [BoxShadow(color: Colors.black, offset: Offset(6, 6))],
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text('🔒', style: TextStyle(fontSize: 50)),
-                  const SizedBox(height: 12),
-                  const Text(
-                    '连杯奶茶钱都不舍得\n还谈什么自律？',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '解锁「${coach.name}」及全部教练',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey),
-                  ),
-                  const SizedBox(height: 20),
-
-                  // 订阅选项
-                  _buildPlanOption(
-                    context: dialogContext,
-                    setDialogState: setDialogState,
-                    type: SubscriptionType.monthly,
-                    title: '月度订阅',
-                    price: '¥9.9/月',
-                    isRecommended: false,
-                  ),
-                  const SizedBox(height: 8),
-                  _buildPlanOption(
-                    context: dialogContext,
-                    setDialogState: setDialogState,
-                    type: SubscriptionType.yearly,
-                    title: '年度订阅',
-                    price: '¥68/年',
-                    subtitle: '仅 ¥5.7/月，省 ¥50',
-                    isRecommended: true,
-                  ),
-                  const SizedBox(height: 8),
-                  _buildPlanOption(
-                    context: dialogContext,
-                    setDialogState: setDialogState,
-                    type: SubscriptionType.lifetime,
-                    title: '终身会员',
-                    price: '¥98',
-                    subtitle: '一次付费，永久使用',
-                    isRecommended: false,
-                  ),
-
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: _isPurchasing
-                          ? null
-                          : () async {
-                              setDialogState(() => _isPurchasing = true);
-                              final success = await PurchaseService.purchase(_selectedPlan);
-
-                              if (!mounted) return;
-
-                              if (success) {
-                                // 先关闭 dialog
-                                Navigator.of(this.context).pop();
-                                // 更新 state
-                                setState(() {
-                                  _coaches = Coach.defaultCoaches.map((c) => c.copyWith(isUnlocked: true)).toList();
-                                });
-                                ScaffoldMessenger.of(this.context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('🎉 解锁成功！现在你可以选择任意教练了。', style: TextStyle(fontWeight: FontWeight.w900)),
-                                    backgroundColor: Color(0xFFCCFF00),
-                                  ),
-                                );
-                              } else {
-                                ScaffoldMessenger.of(this.context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('购买失败或取消，请稍后再试。', style: TextStyle(fontWeight: FontWeight.w900)),
-                                    backgroundColor: Color(0xFFFF3333),
-                                  ),
-                                );
-                              }
-                              setDialogState(() => _isPurchasing = false);
-                            },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFCCFF00),
-                        foregroundColor: Colors.black,
-                        disabledBackgroundColor: Colors.grey[300],
-                        shape: const RoundedRectangleBorder(side: BorderSide(color: Colors.black, width: 3)),
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        elevation: 0,
-                      ),
-                      child: _isPurchasing
-                          ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black))
-                          : const Text('立即解锁', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900)),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  SizedBox(
-                    width: double.infinity,
-                    child: TextButton(
-                      onPressed: () => Navigator.pop(dialogContext),
-                      child: const Text('算了，我继续被 Amanda 骂', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey)),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
+  void _showPaywallDialog(Coach coach) async {
+    final result = await Navigator.push<bool>(
+      context,
+      MaterialPageRoute(builder: (context) => const PaywallScreen()),
     );
-  }
 
-  Widget _buildPlanOption({
-    required BuildContext context,
-    required StateSetter setDialogState,
-    required SubscriptionType type,
-    required String title,
-    required String price,
-    String? subtitle,
-    bool isRecommended = false,
-  }) {
-    final isSelected = _selectedPlan == type;
-
-    return GestureDetector(
-      onTap: () => setDialogState(() => _selectedPlan = type),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFFCCFF00) : Colors.grey[100],
-          border: Border.all(
-            color: isRecommended ? const Color(0xFFCCFF00) : Colors.black,
-            width: isSelected ? 3 : 2,
-          ),
-          boxShadow: isSelected ? const [BoxShadow(color: Colors.black, offset: Offset(2, 2))] : null,
-        ),
-        child: Row(
-          children: [
-            Icon(
-              isSelected ? Icons.check_circle : Icons.circle_outlined,
-              color: Colors.black,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
-                      if (isRecommended) ...[
-                        const SizedBox(width: 8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                          color: Colors.black,
-                          child: const Text('推荐', style: TextStyle(color: Color(0xFFCCFF00), fontSize: 10, fontWeight: FontWeight.bold)),
-                        ),
-                      ],
-                    ],
-                  ),
-                  if (subtitle != null)
-                    Text(subtitle, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey)),
-                ],
-              ),
-            ),
-            Text(price, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900)),
-          ],
-        ),
-      ),
-    );
+    if (result == true && mounted) {
+      setState(() {
+        _coaches = Coach.defaultCoaches.map((c) => c.copyWith(isUnlocked: true)).toList();
+      });
+    }
   }
 
   @override
