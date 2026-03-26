@@ -156,10 +156,10 @@ class _PunishmentSettingsScreenState extends State<PunishmentSettingsScreen> {
           BoxShadow(color: Colors.black, offset: Offset(4, 4)),
         ],
       ),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
               Text('💡', style: TextStyle(fontSize: 24)),
               SizedBox(width: 8),
@@ -172,14 +172,14 @@ class _PunishmentSettingsScreenState extends State<PunishmentSettingsScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12),
           Text(
             '根据你鸽的次数，惩罚会逐渐升级：\n'
             '• 鸽1-2次：轻罚（口头警告）\n'
             '• 鸽3-5次：中罚（锁屏）\n'
             '• 鸽6-10次：重罚（震动+音效+锁屏）\n'
             '• 鸽10次以上：极刑（全惩罚+社死）',
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Colors.black87,
@@ -221,7 +221,7 @@ class _PunishmentSettingsScreenState extends State<PunishmentSettingsScreen> {
       child: SwitchListTile(
         value: value,
         onChanged: onChanged,
-        activeColor: const Color(0xFFCCFF00),
+        activeThumbColor: const Color(0xFFCCFF00),
         activeTrackColor: Colors.black,
         title: Row(
           children: [
@@ -292,7 +292,7 @@ class _PunishmentSettingsScreenState extends State<PunishmentSettingsScreen> {
               activeTrackColor: Colors.black,
               inactiveTrackColor: Colors.grey[300],
               thumbColor: const Color(0xFFCCFF00),
-              overlayColor: const Color(0xFFCCFF00).withOpacity(0.2),
+              overlayColor: const Color(0xFFCCFF00).withValues(alpha: 0.2),
               valueIndicatorColor: Colors.black,
               valueIndicatorTextStyle: const TextStyle(
                 color: Color(0xFFCCFF00),

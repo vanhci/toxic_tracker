@@ -127,19 +127,23 @@ class AchievementService {
   }) async {
     final stats = await loadStats();
 
-    if (flagsAdded != null)
+    if (flagsAdded != null) {
       stats['totalFlags'] = (stats['totalFlags'] ?? 0) + flagsAdded;
+    }
     if (failsAdded != null) {
       stats['totalFails'] = (stats['totalFails'] ?? 0) + failsAdded;
       stats['consecutiveNoFail'] = 0; // 鸽了就重置
     }
-    if (pardonsAdded != null)
+    if (pardonsAdded != null) {
       stats['totalPardons'] = (stats['totalPardons'] ?? 0) + pardonsAdded;
-    if (executionsAdded != null)
+    }
+    if (executionsAdded != null) {
       stats['totalExecutions'] =
           (stats['totalExecutions'] ?? 0) + executionsAdded;
-    if (resetConsecutive == true)
+    }
+    if (resetConsecutive == true) {
       stats['consecutiveNoFail'] = (stats['consecutiveNoFail'] ?? 0) + 1;
+    }
 
     await saveStats(stats);
     return stats;

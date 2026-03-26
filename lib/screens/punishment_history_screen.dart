@@ -439,7 +439,7 @@ class _PunishmentHistoryScreenState extends State<PunishmentHistoryScreen> {
   void _confirmClear() {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (dialogContext) => AlertDialog(
         backgroundColor: Colors.white,
         title: const Text(
           '清除记录',
@@ -451,13 +451,15 @@ class _PunishmentHistoryScreenState extends State<PunishmentHistoryScreen> {
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => Navigator.pop(dialogContext),
             child: const Text('取消'),
           ),
           ElevatedButton(
             onPressed: () async {
               await PunishmentService.clearHistory();
-              Navigator.pop(context);
+              if (!mounted) return;
+              // ignore: use_build_context_synchronously
+              Navigator.pop(dialogContext);
               _loadHistory();
             },
             style: ElevatedButton.styleFrom(

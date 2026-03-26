@@ -33,7 +33,7 @@ void main() {
     });
 
     test('Light punishment has only verbal warning', () {
-      final config = const PunishmentConfig();
+      const config = PunishmentConfig();
       final types = PunishmentService.getTypesForLevel(PunishmentLevel.light, config);
       expect(types, contains(PunishmentType.verbalWarning));
       expect(types, isNot(contains(PunishmentType.lockScreen)));
@@ -41,14 +41,14 @@ void main() {
     });
 
     test('Medium punishment includes lock screen', () {
-      final config = const PunishmentConfig();
+      const config = PunishmentConfig();
       final types = PunishmentService.getTypesForLevel(PunishmentLevel.medium, config);
       expect(types, contains(PunishmentType.lockScreen));
       expect(types, contains(PunishmentType.shameCertificate));
     });
 
     test('Heavy punishment includes vibration and sound', () {
-      final config = const PunishmentConfig();
+      const config = PunishmentConfig();
       final types = PunishmentService.getTypesForLevel(PunishmentLevel.heavy, config);
       expect(types, contains(PunishmentType.vibration));
       expect(types, contains(PunishmentType.soundEffect));
@@ -56,7 +56,7 @@ void main() {
     });
 
     test('Extreme punishment includes all types when enabled', () {
-      final config = const PunishmentConfig();
+      const config = PunishmentConfig();
       final types = PunishmentService.getTypesForLevel(PunishmentLevel.extreme, config);
       expect(types, contains(PunishmentType.lockScreen));
       expect(types, contains(PunishmentType.vibration));
@@ -64,7 +64,7 @@ void main() {
     });
 
     test('Config can disable specific punishments', () {
-      final config = const PunishmentConfig(
+      const config = PunishmentConfig(
         enableVibration: false,
         enableSoundEffect: false,
       );

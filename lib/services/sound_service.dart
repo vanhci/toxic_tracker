@@ -90,7 +90,7 @@ class SoundService {
   /// 随机播放一个惩罚音效
   static Future<void> playRandom({double volume = 1.0}) async {
     final random = Random();
-    final types = SoundType.values;
+    const types = SoundType.values;
     final randomType = types[random.nextInt(types.length)];
     await play(randomType, volume: volume);
   }

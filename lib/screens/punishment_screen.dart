@@ -56,7 +56,7 @@ class _PunishmentScreenState extends State<PunishmentScreen>
   int _popupCount = 0;
   
   // 屏幕颜色
-  Color _backgroundColor = const Color(0xFFFF3333);
+  final Color _backgroundColor = const Color(0xFFFF3333);
   
   // 耻辱文案
   String _shameText = '';
@@ -316,7 +316,7 @@ class _PunishmentScreenState extends State<PunishmentScreen>
         builder: (context, child) {
           return Scaffold(
             backgroundColor: _types.contains(PunishmentType.screenFlash)
-                ? _backgroundColor.withOpacity(_flashAnimation.value)
+                ? _backgroundColor.withValues(alpha: _flashAnimation.value)
                 : _backgroundColor,
             body: Stack(
               children: [
@@ -368,7 +368,7 @@ class _PunishmentScreenState extends State<PunishmentScreen>
         ),
         const SizedBox(height: 10),
         Text(
-          '${PunishmentService.getLevelDescription(_level)}',
+          PunishmentService.getLevelDescription(_level),
           style: const TextStyle(
             color: Colors.black,
             fontSize: 48,
@@ -660,7 +660,7 @@ class CrackPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.black.withOpacity(0.3)
+      ..color = Colors.black.withValues(alpha: 0.3)
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
     

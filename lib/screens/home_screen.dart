@@ -245,6 +245,7 @@ class _HomeScreenState extends State<HomeScreen> {
       failCount: task.consecutiveFails,
     );
 
+    if (!mounted) return;
     showDialog(
       context: context,
       barrierDismissible: false,
