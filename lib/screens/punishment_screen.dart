@@ -653,8 +653,9 @@ class _PunishmentScreenState extends State<PunishmentScreen>
 /// 裂纹绘制器
 class CrackPainter extends CustomPainter {
   final double progress;
+  final Random _random;
 
-  CrackPainter({required this.progress});
+  CrackPainter({required this.progress}) : _random = Random();
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -662,12 +663,10 @@ class CrackPainter extends CustomPainter {
       ..color = Colors.black.withOpacity(0.3)
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
-
-    final random = Random(42); // 固定种子，保证裂纹一致
     
     // 从中心向外画多条裂纹
     for (var i = 0; i < 5; i++) {
-      final angle = (i * 72 + random.nextInt(30)) * 3.14159 / 180;
+      final angle = (i * 72 + _random.nextInt(30)) * 3.14159 / 180;
       final startOffset = Offset(size.width / 2, size.height / 2);
       
       _drawCrackLine(
@@ -676,7 +675,7 @@ class CrackPainter extends CustomPainter {
         startOffset,
         angle,
         size.shortestSide * 0.4 * progress,
-        random,
+        _random,
       );
     }
   }

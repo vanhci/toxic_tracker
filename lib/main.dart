@@ -13,60 +13,33 @@ import 'screens/home_screen.dart';
 final themeService = ThemeService();
 final localeService = LocaleService();
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+class ToxicTrackerApp extends StatefulWidget {
+  const ToxicTrackerApp({super.key});
 
-  const supabaseUrl = 'https://iyziuawpbpyvwhomtjkh.supabase.co';
-  const supabaseAnonKey = 'sb_publishable_XtedakJDneCB9Lboa4ZhNA_JjTzbaau';
-
-  try {
-    await Supabase.initialize(
-      url: supabaseUrl,
-      anonKey: supabaseAnonKey,
-    );
-  } catch (e) {
-    print('Supabase 初始化失败（可能是占位符配置）: $e');
-  }
-
-  try {
-    await Purchases.setLogLevel(LogLevel.debug);
-    const appleApiKey = 'app5904c87b38';
-    final configuration = PurchasesConfiguration(appleApiKey);
-    await Purchases.configure(configuration);
-  } catch (e) {
-    print('RevenueCat 初始化失败: $e');
-  }
-
-  // 初始化通知服务
-  try {
-    await NotificationService.initialize();
-    await NotificationService.requestPermission();
-  } catch (e) {
-    print('NotificationService 初始化失败: $e');
-  }
-
-  // 初始化小组件服务
-  try {
-    await WidgetService.initialize();
-  } catch (e) {
-    print('WidgetService 初始化失败: $e');
-  }
-
-  // 初始化语音服务
-  try {
-    await VoiceService.initialize();
-  } catch (e) {
-    print('VoiceService 初始化失败: $e');
-  }
-
-  await themeService.load();
-  await localeService.load();
-
-  runApp(const ToxicTrackerApp());
+  @override
+  State<ToxicTrackerApp> createState() => _ToxicTrackerAppState();
 }
 
-class ToxicTrackerApp extends StatelessWidget {
-  const ToxicTrackerApp({super.key});
+class _ToxicTrackerAppState extends State<ToxicTrackerApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    VoiceService.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.detached) {
+      VoiceService.dispose();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,4 +103,67 @@ class ToxicTrackerApp extends StatelessWidget {
       ),
     );
   }
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 从环境变量读取配置，提供默认值用于开发环境
+  const supabaseUrl = String.fromEnvironment(
+    'SUPABASE_URL',
+    defaultValue: 'https://iyziuawpbpyvwhomtjkh.supabase.co',
+  );
+  const supabaseAnonKey = String.fromEnvironment(
+    'SUPABASE_ANON_KEY',
+    defaultValue: 'sb_publishable_XtedakJDneCB9Lboa4ZhNA_JjTzbaau',
+  );
+
+  try {
+    await Supabase.initialize(
+      url: supabaseUrl,
+      anonKey: supabaseAnonKey,
+    );
+  } catch (e) {
+    print('Supabase 初始化失败（可能是占位符配置）: $e');
+  }
+
+  try {
+    await Purchases.setLogLevel(LogLevel.debug);
+    // 从环境变量读取 API Key，提供默认值用于开发环境
+    const appleApiKey = String.fromEnvironment(
+      'REVENUECAT_API_KEY',
+      defaultValue: 'app5904c87b38',
+    );
+    final configuration = PurchasesConfiguration(appleApiKey);
+    await Purchases.configure(configuration);
+  } catch (e) {
+    print('RevenueCat 初始化失败: $e');
+  }
+
+  // 初始化通知服务
+  try {
+    await NotificationService.initialize();
+    await NotificationService.requestPermission();
+  } catch (e) {
+    print('NotificationService 初始化失败: $e');
+  }
+
+  // 初始化小组件服务
+  try {
+    await WidgetService.initialize();
+  } catch (e) {
+    print('WidgetService 初始化失败: $e');
+  }
+
+  // 初始化语音服务
+  try {
+    await VoiceService.initialize();
+  } catch (e) {
+    print('VoiceService 初始化失败: $e');
+  }
+
+  await themeService.load();
+  await localeService.load();
+
+  runApp(const ToxicTrackerApp());
 }

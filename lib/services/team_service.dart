@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -16,8 +17,8 @@ class TeamService {
     String? leaderName,
   }) async {
     try {
-      // 生成邀请码
-      final inviteCode = _generateInviteCode();
+      // 生成邀请码（异步）
+      final inviteCode = await _generateInviteCode();
 
       // 插入团队记录
       final response = await _supabase
@@ -254,14 +255,34 @@ class TeamService {
     }
   }
 
-  /// 生成邀请码
-  static String _generateInviteCode() {
+  /// 生成邀请码 - 使用安全的随机算法 + 唯一性校验
+  static Future<String> _generateInviteCode() async {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    final code = StringBuffer();
-    for (var i = 0; i < 6; i++) {
-      code.write(chars[DateTime.now().microsecondsSinceEpoch % chars.length]);
+    final random = Random.secure();
+    
+    // 最多尝试10次生成唯一邀请码
+    for (var attempt = 0; attempt < 10; attempt++) {
+      final code = StringBuffer();
+      for (var i = 0; i < 6; i++) {
+        code.write(chars[random.nextInt(chars.length)]);
+      }
+      final inviteCode = code.toString();
+      
+      // 检查唯一性
+      final existing = await _supabase
+          .from('teams')
+          .select('id')
+          .eq('invite_code', inviteCode)
+          .maybeSingle();
+      
+      if (existing == null) {
+        return inviteCode;
+      }
     }
-    return code.toString();
+    
+    // 如果10次都重复，使用UUID后6位作为后备方案
+    final uuid = DateTime.now().microsecondsSinceEpoch.toString();
+    return uuid.substring(uuid.length - 6).toUpperCase();
   }
 
   /// 保存当前团队 ID

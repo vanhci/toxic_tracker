@@ -129,8 +129,9 @@
   <!-- Supabase JS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    const SUPABASE_URL = 'https://iyziuawpbpyvwhomtjkh.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_XtedakJDneCB9Lboa4ZhNA_JjTzbaau';
+    // 从 URL 参数或环境变量读取配置（构建时替换）
+    const SUPABASE_URL = window.SUPABASE_URL || 'https://iyziuawpbpyvwhomtjkh.supabase.co';
+    const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY || 'sb_publishable_XtedakJDneCB9Lboa4ZhNA_JjTzbaau';
 
     const { createClient } = supabase;
     const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);

@@ -26,7 +26,11 @@ class SubscriptionOption {
 }
 
 class PurchaseService {
-  static const String _apiKey = 'app5904c87b38';
+  // 从环境变量读取 API Key，提供默认值用于开发环境
+  static const String _apiKey = String.fromEnvironment(
+    'REVENUECAT_API_KEY',
+    defaultValue: 'app5904c87b38',
+  );
   static const String _entitlementId = 'toxic_tracker Pro';
 
   // Package identifiers (RevenueCat 后台配置)
