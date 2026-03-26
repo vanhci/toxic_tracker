@@ -61,4 +61,10 @@ secrets/
 *.pem
 *.key
 credentials.json
+
+# Android signing
+android/key.properties
+android/*.jks
+android/*.keystore
+
 coverage/
