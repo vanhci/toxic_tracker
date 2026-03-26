@@ -10,9 +10,13 @@ import '../services/verdict_service.dart';
 import '../services/achievement_service.dart';
 import '../services/offline_service.dart';
 import '../services/widget_service.dart';
+import '../services/punishment_service.dart';
+import '../services/shame_text_service.dart';
 import '../main.dart';
 import 'add_task_screen.dart';
 import 'punishment_screen.dart';
+import 'punishment_history_screen.dart';
+import 'punishment_settings_screen.dart';
 import 'coach_selection_screen.dart';
 import 'achievement_screen.dart';
 import 'team_screen.dart';
@@ -226,8 +230,21 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // 粗野风格的惩罚弹窗
-  void _showPunishmentDialog(Task task) {
+  // 粗野风格的惩罚弹窗 - 使用新的惩罚等级系统
+  void _showPunishmentDialog(Task task) async {
+    final level = PunishmentService.getLevel(task.consecutiveFails);
+    final config = await PunishmentService.loadConfig();
+    final types = PunishmentService.getTypesForLevel(level, config);
+    final levelDesc = PunishmentService.getLevelDescription(level);
+    final levelEmoji = PunishmentService.getLevelEmoji(level);
+    
+    // 生成耻辱文案
+    final shameText = ShameTextService.getCoachSpecificShame(
+      coachId: _currentCoach.id,
+      taskTitle: task.title,
+      failCount: task.consecutiveFails,
+    );
+
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -246,24 +263,79 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text('🙄', style: TextStyle(fontSize: 50)),
+              Text(levelEmoji, style: const TextStyle(fontSize: 50)),
               const SizedBox(height: 16),
-              const Text(
-                '行刑官已就位',
-                style: TextStyle(
+              Text(
+                levelDesc,
+                style: const TextStyle(
                     fontSize: 24,
+                    fontWeight: FontWeight.w900,
+                    color: Color(0xFFFF3333)),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                shameText,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                '「${task.title}」',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    fontSize: 18,
                     fontWeight: FontWeight.w900,
                     color: Colors.black),
               ),
               const SizedBox(height: 8),
-              Text(
-                '你已经连续鸽了 ${task.consecutiveFails} 次！\n你的脸皮可真够厚的。',
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                color: Colors.black,
+                child: Text(
+                  '连续鸽了 ${task.consecutiveFails} 次',
+                  style: const TextStyle(
+                    color: Color(0xFFCCFF00),
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
               ),
+              if (types.isNotEmpty) ...[
+                const SizedBox(height: 12),
+                Wrap(
+                  spacing: 6,
+                  runSpacing: 4,
+                  children: types.take(5).map((type) {
+                    String emoji;
+                    switch (type) {
+                      case PunishmentType.vibration:
+                        emoji = '📳';
+                        break;
+                      case PunishmentType.soundEffect:
+                        emoji = '🔊';
+                        break;
+                      case PunishmentType.screenFlash:
+                        emoji = '💫';
+                        break;
+                      case PunishmentType.annoyingPopup:
+                        emoji = '.popup';
+                        break;
+                      default:
+                        emoji = '🔒';
+                    }
+                    return Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        color: Colors.grey[200],
+                      ),
+                      child: Text(emoji, style: const TextStyle(fontSize: 14)),
+                    );
+                  }).toList(),
+                ),
+              ],
               const SizedBox(height: 24),
               SizedBox(
                 width: double.infinity,
@@ -274,18 +346,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => PunishmentScreen(
-                          punishmentType: '赛博电子木鱼',
+                          punishmentType: levelDesc,
                           taskTitle: task.title,
                           failCount: task.consecutiveFails,
                           coachName: _currentCoach.name,
                           coachEmoji: _currentCoach.emoji,
                           coach: _currentCoach,
+                          config: config,
                         ),
                       ),
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFFF3333), // 刺眼红
+                    backgroundColor: const Color(0xFFFF3333),
                     foregroundColor: Colors.black,
                     shape: const RoundedRectangleBorder(
                         side: BorderSide(color: Colors.black, width: 3)),
@@ -485,6 +558,36 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.grey[300],
                   ),
                   child: const Text('🏢', style: TextStyle(fontSize: 20)),
+                ),
+              ),
+              const SizedBox(width: 8),
+              GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const PunishmentHistoryScreen()),
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 2),
+                    color: Colors.grey[300],
+                  ),
+                  child: const Text('💀', style: TextStyle(fontSize: 20)),
+                ),
+              ),
+              const SizedBox(width: 8),
+              GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const PunishmentSettingsScreen()),
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 2),
+                    color: Colors.grey[300],
+                  ),
+                  child: const Text('⚙️', style: TextStyle(fontSize: 20)),
                 ),
               ),
             ],

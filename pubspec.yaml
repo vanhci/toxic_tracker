@@ -25,6 +25,7 @@ dependencies:
   home_widget: ^0.7.0
   flutter_tts: ^4.0.2
   audioplayers: ^6.1.0
+  vibration: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -34,6 +35,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  
+  assets:
+    - assets/sounds/
 
 # App Icon Configuration
 flutter_launcher_icons:
