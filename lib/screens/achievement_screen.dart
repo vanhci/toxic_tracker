@@ -190,7 +190,7 @@ class _AchievementScreenState extends State<AchievementScreen> {
           ),
         ),
         title: Text(
-          achievement.name,
+          achievement.title,
           style: TextStyle(
             color: isUnlocked ? Colors.white : Colors.grey[500],
             fontSize: 16,
