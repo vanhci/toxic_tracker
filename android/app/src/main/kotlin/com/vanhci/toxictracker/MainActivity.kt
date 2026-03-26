@@ -1,4 +1,4 @@
-package com.example.toxic_tracker
+package com.vanhci.toxictracker
 
 import io.flutter.embedding.android.FlutterActivity
 
