@@ -29,20 +29,20 @@
 
 ---
 
-### 2️⃣ RevenueCat 配置（商业化必需）
+### 2️⃣ RevenueCat 配置（商业化必需） ✅ 已完成
 
 #### 注册账号
-- [ ] 访问 [revenuecat.com](https://www.revenuecat.com/) 注册开发者账号
-- [ ] 创建新项目
+- [x] 访问 [revenuecat.com](https://www.revenuecat.com/) 注册开发者账号
+- [x] 创建新项目
 
 #### iOS 配置
-- [ ] 在 App Store Connect 创建 App ID
-- [ ] 配置订阅组（Subscription Group）
-- [ ] 创建订阅商品：
-  - Product ID: `pro_monthly`
-  - 价格: ¥9.9/月
-- [ ] 在 RevenueCat 添加 iOS App
-- [ ] 配置 App Store Connect 共享密钥
+- [x] 在 App Store Connect 创建 App ID
+- [x] 配置订阅组（Subscription Group）
+- [x] 创建订阅商品：
+  - Product ID: `toxic_yearly_19.9` (¥19.9/年)
+  - Product ID: `toxic_lifetime_68` (¥68 终身)
+- [x] 在 RevenueCat 添加 iOS App
+- [x] 配置 App Store Connect 共享密钥
 
 #### Android 配置
 - [ ] 在 Google Play Console 创建应用
@@ -51,13 +51,13 @@
 - [ ] 配置 Service Account
 
 #### 应用配置
-- [ ] 获取 RevenueCat API Key
-- [ ] 替换 `lib/services/purchase_service.dart` 第 4 行：
-  ```dart
-  static const String _apiKey = 'YOUR_REVENUECAT_API_KEY';
-  ```
-- [ ] 配置 Offering ID 为 `default`
-- [ ] 配置 Entitlement ID 为 `pro`
+- [x] 获取 RevenueCat API Key
+- [x] 配置 `lib/services/purchase_service.dart`：
+  - API Key: `app5904c87b38`
+  - Package identifiers: `toxic_yearly_19.9`, `toxic_lifetime_68`
+  - Entitlement ID: `toxic_tracker Pro`
+- [x] 配置 Offering ID 为 `default`
+- [x] 配置 Entitlement ID 为 `toxic_tracker Pro`
 
 ---
 
@@ -72,19 +72,39 @@
 
 ---
 
-### 4️⃣ App Store 上架准备
+### 4️⃣ App Store 上架准备 🔄 进行中
 
 #### 开发者账号
 - [ ] 注册苹果开发者账号（$99/年）
 - [ ] 完成开发者认证
-- [ ] 创建 App ID：`com.yourcompany.toxictracker`
+- [x] 创建 App ID：`com.vanhci.toxictracker` ✅
+
+#### Package ID 配置 ✅ 已完成
+- [x] Android applicationId: `com.vanhci.toxictracker`
+- [x] Android namespace: `com.vanhci.toxictracker`
+- [x] iOS PRODUCT_BUNDLE_IDENTIFIER: `com.vanhci.toxictracker`
+- [x] Kotlin 文件包结构更新
+
+#### 隐私政策 ✅ 已完成
+- [x] 创建 `privacy_policy.md`
+- [x] 包含数据收集说明
+- [x] 包含 Supabase 存储使用说明
+- [x] 包含 RevenueCat 支付处理说明
+- [x] 包含用户权利说明
+- [ ] 托管到 GitHub Pages（待执行）
+
+#### Android 签名 📝 待配置
+- [x] 创建签名配置指南 `android/SIGNING_SETUP.md`
+- [ ] 创建签名证书 (.jks)
+- [ ] 配置 key.properties
+- [ ] 更新 build.gradle.kts 签名配置
+- [ ] 验证签名
 
 #### 提审素材
 - [ ] App Logo（1024x1024）
 - [ ] 启动页截图（各尺寸）
 - [ ] 宣传图（1024x1024）
 - [ ] 预览视频（可选）
-- [ ] 隐私政策页面（可用 [Termly](https://termly.com/) 生成）
 - [ ] 用户协议页面
 
 #### ASO 优化
@@ -142,8 +162,13 @@
 - [x] 代码质量检查（分析 + 测试）
 - [x] Web 构建验证
 - [x] 添加 Supabase 迁移脚本（supabase/migrations.sql）
+- [x] Package ID 更新为 `com.vanhci.toxictracker`
+- [x] 隐私政策文档创建
+- [x] Android 签名配置指南
 - [ ] 测试完整流程（需网络）
-- [ ] RevenueCat 配置
+- [ ] 创建 Android 签名证书
+- [ ] 托管隐私政策到 GitHub Pages
+- [ ] RevenueCat 后台创建产品
 - [ ] 提交 App Store 审核
 
 ### 用户增长（Week 2-4）
@@ -169,6 +194,12 @@
 ---
 
 ## ✅ 已完成功能
+
+### 上架准备 (2026-03-26)
+- [x] Package ID 更新为 `com.vanhci.toxictracker`
+- [x] 隐私政策文档 (`privacy_policy.md`)
+- [x] Android 签名配置指南 (`android/SIGNING_SETUP.md`)
+- [x] RevenueCat iOS 配置验证通过
 
 ### 核心功能
 - [x] 任务管理（增删改查）
