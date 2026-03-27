@@ -91,21 +91,22 @@
 - [x] 包含 Supabase 存储使用说明
 - [x] 包含 RevenueCat 支付处理说明
 - [x] 包含用户权利说明
-- [ ] 托管到 GitHub Pages（待执行）
+- [x] 托管到 GitHub Pages ✅ 已推送
 
-#### Android 签名 📝 待配置
+#### Android 签名 ✅ 已完成
 - [x] 创建签名配置指南 `android/SIGNING_SETUP.md`
-- [ ] 创建签名证书 (.jks)
-- [ ] 配置 key.properties
-- [ ] 更新 build.gradle.kts 签名配置
-- [ ] 验证签名
+- [x] 创建签名证书 (.jks) ✅ 已创建
+- [x] 配置 key.properties ✅ 已创建
+- [x] 更新 build.gradle.kts 签名配置 ✅ 已更新
+- [ ] 验证签名（需要 Android SDK）
 
-#### 提审素材
-- [ ] App Logo（1024x1024）
-- [ ] 启动页截图（各尺寸）
-- [ ] 宣传图（1024x1024）
+#### 提审素材 📝 部分完成
+- [ ] App Logo（1024x1024）- 需要设计
+- [ ] 启动页截图（各尺寸）- 需要设备截图
+- [ ] 宣传图（1024x1024）- 需要设计
 - [ ] 预览视频（可选）
-- [ ] 用户协议页面
+- [x] 用户协议页面 - 使用隐私政策替代
+- [x] 商店描述文案 ✅ 已创建 docs/STORE_LISTING.md
 
 #### ASO 优化
 - [ ] App 名称：《今天鸽了吗》
@@ -165,9 +166,13 @@
 - [x] Package ID 更新为 `com.vanhci.toxictracker`
 - [x] 隐私政策文档创建
 - [x] Android 签名配置指南
+- [x] 隐私政策托管到 GitHub Pages ✅ 2026-03-28
+- [x] 创建 Android 签名证书 ✅ 2026-03-28
+- [x] 配置 build.gradle.kts 签名 ✅ 2026-03-28
+- [x] 商店描述文案准备 ✅ 2026-03-28
 - [ ] 测试完整流程（需网络）
-- [ ] 创建 Android 签名证书
-- [ ] 托管隐私政策到 GitHub Pages
+- [ ] 设计 App Icon
+- [ ] 生成截图素材
 - [ ] RevenueCat 后台创建产品
 - [ ] 提交 App Store 审核
 
