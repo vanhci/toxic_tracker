@@ -3,18 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>今天鸽了吗 - 隐私政策</title>
-    <link rel="icon" href="https://raw.githubusercontent.com/vanhci/toxic_tracker/main/assets/icon/app_icon.png">
+    <meta http-equiv="refresh" content="0; url=https://github.com/vanhci/toxic_tracker">
+    <title>Toxic Tracker | 今天鸽了吗</title>
     <style>
-        :root {
-            --primary: #FFE500;
-            --bg: #1A1A1A;
-            --text: #FFFFFF;
-            --secondary-text: #888888;
-            --border: #333333;
-            --card-bg: #222222;
-        }
-        
         * {
             margin: 0;
             padding: 0;
@@ -22,325 +13,122 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
+        }
+        
+        .container {
+            max-width: 500px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            text-align: center;
         }
         
         .header {
-            text-align: center;
-            padding: 40px 0;
-            border-bottom: 3px solid var(--primary);
-            margin-bottom: 40px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 40px 30px;
         }
         
-        .app-icon {
-            width: 80px;
-            height: 80px;
-            border: 4px solid var(--primary);
-            border-radius: 16px;
-            margin-bottom: 20px;
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 15px;
         }
         
         h1 {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
         }
         
         .subtitle {
-            color: var(--secondary-text);
-            font-size: 14px;
+            font-size: 1rem;
+            opacity: 0.9;
         }
         
-        .update-date {
-            background: var(--primary);
-            color: var(--bg);
-            display: inline-block;
-            padding: 4px 12px;
-            font-size: 12px;
-            font-weight: 700;
-            border: 2px solid var(--border);
-            margin-top: 16px;
-        }
-        
-        h2 {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--primary);
-            margin: 40px 0 20px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--border);
-        }
-        
-        h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text);
-            margin: 24px 0 12px;
+        .content {
+            padding: 30px;
         }
         
         p {
-            margin-bottom: 16px;
-            color: var(--text);
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
         }
         
-        ul {
-            margin: 16px 0;
-            padding-left: 24px;
-        }
-        
-        li {
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-        
-        .card {
-            background: var(--card-bg);
-            border: 2px solid var(--border);
-            padding: 20px;
-            margin: 20px 0;
-        }
-        
-        .warning {
-            background: #2A1A1A;
-            border-left: 4px solid #FF4444;
-            padding: 16px;
-            margin: 16px 0;
-        }
-        
-        .highlight {
-            color: var(--primary);
-            font-weight: 600;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border: 2px solid var(--border);
-        }
-        
-        th {
-            background: var(--card-bg);
-            color: var(--primary);
-            font-weight: 600;
-        }
-        
-        a {
-            color: var(--primary);
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
             text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 5px;
         }
         
-        a:hover {
-            text-decoration: underline;
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
         .footer {
-            text-align: center;
-            margin-top: 60px;
-            padding-top: 20px;
-            border-top: 2px solid var(--border);
-            color: var(--secondary-text);
-            font-size: 12px;
+            background: #f8f9fa;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: #666;
         }
         
-        @media (max-width: 600px) {
-            body {
-                padding: 16px;
-            }
-            
-            h1 {
-                font-size: 22px;
-            }
-            
-            h2 {
-                font-size: 18px;
-            }
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .redirect-notice {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <img src="https://raw.githubusercontent.com/vanhci/toxic_tracker/main/assets/icon/app_icon.png" alt="App Icon" class="app-icon">
-        <h1>今天鸽了吗</h1>
-        <p class="subtitle">一款专门骂你的自律 App</p>
-        <div class="update-date">最后更新：2026年3月26日</div>
-    </div>
-
-    <h2>概述</h2>
-    <p>今天鸽了吗（以下简称"我们"或"本应用"）致力于保护您的隐私。本隐私政策说明我们如何收集、使用和保护您的信息。</p>
-
-    <h2>1. 信息收集</h2>
-    
-    <h3>1.1 我们收集的信息</h3>
-    <div class="card">
-        <p><strong>用户账户信息：</strong></p>
-        <ul>
-            <li>电子邮箱地址（用于账户注册和登录）</li>
-            <li>用户名（可选）</li>
-        </ul>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🕊️</div>
+            <h1>Toxic Tracker</h1>
+            <div class="subtitle">今天鸽了吗？</div>
+        </div>
         
-        <p><strong>使用数据：</strong></p>
-        <ul>
-            <li>鸽子记录（您主动创建的提醒和追踪记录）</li>
-            <li>应用设置偏好</li>
-            <li>使用统计信息（匿名）</li>
-        </ul>
-    </div>
-
-    <h3>1.2 我们不收集的信息</h3>
-    <div class="warning">
-        <ul>
-            <li>精确地理位置数据</li>
-            <li>联系人列表</li>
-            <li>短信或通话记录</li>
-            <li>照片或媒体文件（除非您主动上传）</li>
-        </ul>
-    </div>
-
-    <h2>2. 数据存储与处理</h2>
-    
-    <h3>2.1 Supabase</h3>
-    <p>我们使用 <a href="https://supabase.com" target="_blank">Supabase</a> 作为后端服务提供商，用于：</p>
-    <ul>
-        <li>用户身份验证</li>
-        <li>数据存储和同步</li>
-        <li>实时数据更新</li>
-    </ul>
-    <p>Supabase 遵循 SOC 2 Type II 合规标准，数据存储在安全的服务器上。</p>
-
-    <h3>2.2 本地存储</h3>
-    <p>部分数据（如设置偏好）存储在您的设备本地，不会上传到服务器。</p>
-
-    <h2>3. 支付处理</h2>
-    
-    <h3>3.1 RevenueCat</h3>
-    <p>我们使用 <a href="https://www.revenuecat.com" target="_blank">RevenueCat</a> 处理应用内购买：</p>
-    <ul>
-        <li>订阅管理</li>
-        <li>支付验证</li>
-        <li>购买恢复</li>
-    </ul>
-    
-    <div class="card">
-        <p><strong>重要说明：</strong></p>
-        <ul>
-            <li>我们不直接存储或处理您的支付卡信息</li>
-            <li>支付处理由 Apple App Store 和 Google Play Store 安全处理</li>
-            <li>RevenueCat 仅存储与订阅状态相关的必要信息</li>
-        </ul>
-    </div>
-
-    <h3>3.2 订阅信息</h3>
-    <p>订阅购买时，我们会记录：</p>
-    <ul>
-        <li>订阅状态（活跃/过期）</li>
-        <li>订阅类型（年度/终身）</li>
-        <li>订阅到期日期</li>
-    </ul>
-
-    <h2>4. 数据共享</h2>
-    <p>我们不会将您的个人信息出售、交易或分享给第三方，除非：</p>
-    <ul>
-        <li>获得您的明确同意</li>
-        <li>法律法规要求</li>
-        <li>保护我们的权利、隐私、安全或财产</li>
-    </ul>
-
-    <h2>5. 数据安全</h2>
-    <p>我们采取合理的安全措施保护您的信息：</p>
-    <ul>
-        <li>数据传输使用 HTTPS 加密</li>
-        <li>数据库访问受限</li>
-        <li>定期安全审查</li>
-    </ul>
-
-    <h2>6. 用户权利</h2>
-    <p>您拥有以下权利：</p>
-    
-    <h3>6.1 访问权</h3>
-    <p>您可以随时查看存储在您账户中的数据。</p>
-    
-    <h3>6.2 删除权</h3>
-    <p>您可以请求删除您的账户和所有关联数据。删除后，数据将无法恢复。</p>
-    
-    <h3>6.3 导出权</h3>
-    <p>您可以请求导出您的数据。</p>
-    
-    <h3>6.4 如何行使权利</h3>
-    <p>通过以下方式联系我们：</p>
-    <ul>
-        <li>应用内设置 → 账户 → 删除账户</li>
-        <li>邮件：<a href="mailto:support@vanhci.com">support@vanhci.com</a></li>
-    </ul>
-
-    <h2>7. 数据保留</h2>
-    <ul>
-        <li>活跃账户数据：保留至账户删除</li>
-        <li>已删除账户数据：30天内彻底删除</li>
-        <li>匿名使用统计：不包含个人身份信息</li>
-    </ul>
-
-    <h2>8. 儿童隐私</h2>
-    <p>本应用不面向13岁以下儿童。如果您发现我们无意中收集了儿童的信息，请联系我们删除。</p>
-
-    <h2>9. 政策变更</h2>
-    <p>我们可能会更新本隐私政策。重大变更时，我们会在应用内通知您。</p>
-
-    <h2>10. 联系我们</h2>
-    <p>如有隐私相关问题，请联系：</p>
-    <ul>
-        <li>邮箱：<a href="mailto:support@vanhci.com">support@vanhci.com</a></li>
-        <li>开发者：VanhCI</li>
-    </ul>
-
-    <h2>11. 第三方服务</h2>
-    <p>本应用使用的第三方服务：</p>
-    
-    <table>
-        <tr>
-            <th>服务</th>
-            <th>用途</th>
-            <th>隐私政策</th>
-        </tr>
-        <tr>
-            <td>Supabase</td>
-            <td>后端服务、数据存储</td>
-            <td><a href="https://supabase.com/privacy" target="_blank">Supabase Privacy Policy</a></td>
-        </tr>
-        <tr>
-            <td>RevenueCat</td>
-            <td>订阅和支付处理</td>
-            <td><a href="https://www.revenuecat.com/privacy" target="_blank">RevenueCat Privacy Policy</a></td>
-        </tr>
-        <tr>
-            <td>Apple App Store</td>
-            <td>支付处理</td>
-            <td><a href="https://www.apple.com/legal/privacy/" target="_blank">Apple Privacy Policy</a></td>
-        </tr>
-        <tr>
-            <td>Google Play Store</td>
-            <td>支付处理</td>
-            <td><a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy</a></td>
-        </tr>
-    </table>
-
-    <div class="footer">
-        <p>© 2026 VanhCI. All rights reserved.</p>
-        <p><a href="https://github.com/vanhci/toxic_tracker">GitHub</a></p>
+        <div class="content">
+            <p>一款独特的自律应用，用"毒舌"和"死党监督"帮你告别拖延症！</p>
+            
+            <div>
+                <a href="https://github.com/vanhci/toxic_tracker" class="btn">GitHub 仓库</a>
+                <a href="./privacy/" class="btn btn-secondary">隐私政策</a>
+            </div>
+            
+            <p class="redirect-notice">页面即将自动跳转到 GitHub...</p>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2026 VanhCI · <a href="mailto:support@vanhci.com">联系我们</a></p>
+        </div>
     </div>
 </body>
 </html>
