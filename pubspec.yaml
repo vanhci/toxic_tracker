@@ -18,7 +18,7 @@ dependencies:
   share_plus: ^7.2.2
   supabase_flutter: ^2.6.0
   purchases_flutter: ^9.0.0
-  connectivity_plus: ^6.0.3
+  connectivity_plus: ^7.0.0
   path_provider: ^2.1.2
   flutter_local_notifications: ^21.0.0
   timezone: ^0.11.0
