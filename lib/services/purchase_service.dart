@@ -125,8 +125,10 @@ class PurchaseService {
 
       if (package == null) return false;
 
-      final customerInfo = await Purchases.purchasePackage(package);
-      return customerInfo.entitlements.all[_entitlementId]?.isActive ?? false;
+      // 使用新的 PurchaseParams API
+      final purchaseParams = PurchaseParams.package(package);
+      final result = await Purchases.purchase(purchaseParams);
+      return result.customerInfo.entitlements.all[_entitlementId]?.isActive ?? false;
     } catch (e) {
       print('购买失败: $e');
       return false;

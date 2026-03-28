@@ -27,13 +27,21 @@ class NotificationService {
       requestSoundPermission: true,
     );
 
+    // macOS 设置
+    const macosSettings = DarwinInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
+    );
+
     const initSettings = InitializationSettings(
       android: androidSettings,
       iOS: iosSettings,
+      macOS: macosSettings,
     );
 
     await _notifications.initialize(
-      initSettings,
+      settings: initSettings,
       onDidReceiveNotificationResponse: _onNotificationTapped,
     );
 
@@ -52,6 +60,8 @@ class NotificationService {
         AndroidFlutterLocalNotificationsPlugin>();
     final ios = _notifications.resolvePlatformSpecificImplementation<
         IOSFlutterLocalNotificationsPlugin>();
+    final macos = _notifications.resolvePlatformSpecificImplementation<
+        MacOSFlutterLocalNotificationsPlugin>();
 
     bool granted = true;
 
@@ -67,6 +77,15 @@ class NotificationService {
         sound: true,
       );
       granted &= iosGranted ?? false;
+    }
+
+    if (macos != null) {
+      final macosGranted = await macos.requestPermissions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+      granted &= macosGranted ?? false;
     }
 
     return granted;
@@ -95,12 +114,25 @@ class NotificationService {
       presentSound: true,
     );
 
+    const macosDetails = DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+
     const details = NotificationDetails(
       android: androidDetails,
       iOS: iosDetails,
+      macOS: macosDetails,
     );
 
-    await _notifications.show(id, title, body, details, payload: payload);
+    await _notifications.show(
+      id: id,
+      title: title,
+      body: body,
+      notificationDetails: details,
+      payload: payload,
+    );
   }
 
   /// 定时通知
@@ -126,27 +158,32 @@ class NotificationService {
       presentSound: true,
     );
 
+    const macosDetails = DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+
     const details = NotificationDetails(
       android: androidDetails,
       iOS: iosDetails,
+      macOS: macosDetails,
     );
 
     await _notifications.zonedSchedule(
-      id,
-      title,
-      body,
-      tz.TZDateTime.from(scheduledDate, tz.local),
-      details,
+      id: id,
+      title: title,
+      body: body,
+      scheduledDate: tz.TZDateTime.from(scheduledDate, tz.local),
+      notificationDetails: details,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
       payload: payload,
     );
   }
 
   /// 取消通知
   static Future<void> cancelNotification(int id) async {
-    await _notifications.cancel(id);
+    await _notifications.cancel(id: id);
   }
 
   /// 取消所有通知
