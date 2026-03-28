@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="0; url=https://github.com/vanhci/toxic_tracker">
+    <title>Toxic Tracker | 今天鸽了吗</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 500px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 40px 30px;
+        }
+        
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 5px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .redirect-notice {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🕊️</div>
+            <h1>Toxic Tracker</h1>
+            <div class="subtitle">今天鸽了吗？</div>
+        </div>
+        
+        <div class="content">
+            <p>一款独特的自律应用，用"毒舌"和"死党监督"帮你告别拖延症！</p>
+            
+            <div>
+                <a href="https://github.com/vanhci/toxic_tracker" class="btn">GitHub 仓库</a>
+                <a href="./privacy/" class="btn btn-secondary">隐私政策</a>
+            </div>
+            
+            <p class="redirect-notice">页面即将自动跳转到 GitHub...</p>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2026 VanhCI · <a href="mailto:support@vanhci.com">联系我们</a></p>
+        </div>
+    </div>
+</body>
+</html>

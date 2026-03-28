@@ -917,6 +917,11 @@ flutter build ios --release  # iOS
 ## 📄 许可证
 MIT License
 
+## 🔗 链接
+
+- **GitHub 仓库**: https://github.com/vanhci/toxic_tracker
+- **隐私政策**: https://vanhci.github.io/toxic_tracker/privacy/
+
 ## 👤 作者
 vanhci
 
