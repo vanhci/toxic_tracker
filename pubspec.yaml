@@ -15,7 +15,7 @@ dependencies:
   shared_preferences: ^2.2.2
   intl: ^0.20.2
   image_picker: ^1.0.7
-  share_plus: ^7.2.2
+  share_plus: ^12.0.1
   supabase_flutter: ^2.6.0
   purchases_flutter: ^9.0.0
   connectivity_plus: ^6.0.3
